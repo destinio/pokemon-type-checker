@@ -20,7 +20,7 @@ export default function TypeButtons() {
   }
 
   return (
-    <div className='grid grid-cols-4 gap-2 mt-4'>
+    <div className='grid grid-cols-4 gap-2'>
       {pokemonTypes.map(p => (
         <button
           key={p.type}
