@@ -28,3 +28,7 @@ npm run dev
 
 - Vite: Fast build and development server for optimal performance.
 - TypeScript: Enhancing code reliability and maintainability.
+
+:sparkles: Enjoy exploring Pokémon types with the Pokémon Type Checker! :sparkles:
+
+"A Caterpie may change into a Butterfree, but the heart that beats inside remains the same." - Brock
