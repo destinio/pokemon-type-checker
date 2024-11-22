@@ -1,3 +1,4 @@
+import { useApp } from '../context/AppProvider'
 import { Info, convertInfoHeader } from '../data/types'
 import { useTypeChecker } from '../pages/TypeChecker/context/TypeCheckerProvider'
 import DelayedLoader from './DelayedLoader'
@@ -5,6 +6,10 @@ import TypeIcon from './TypeIcon'
 
 export default function TypeInfo() {
   const { typeData: typeInfo, isLoading } = useTypeChecker()
+
+  const { settings } = useApp()
+
+  console.log(settings)
 
   if (!typeInfo) return null
 
