@@ -7,6 +7,11 @@ interface PokemonSimp {
   url: string
 }
 
+interface PokemonSearch extends PokemonSimp {
+  id: number
+  image: string
+}
+
 export default function Search() {
   const nav = useNavigate()
 
@@ -32,7 +37,7 @@ export default function Search() {
   })
 
   const searchRef = useRef<HTMLInputElement>(null!)
-  const [filtered, setFiltered] = useState<PokemonSimp[]>(null!)
+  const [filtered, setFiltered] = useState<PokemonSearch[]>(null!)
 
   if (isLoading || isFetching) {
     return <div className='max-w-lg m-auto p-4'>Loading...</div>
