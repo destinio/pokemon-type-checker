@@ -5,8 +5,10 @@ import { TypeCheckerProvider } from './context/TypeCheckerProvider'
 export default function TypeChecker() {
   return (
     <TypeCheckerProvider>
-      <TypeButtons />
-      <TypeInfo />
+      <div className='max-w-lg m-auto p-4'>
+        <TypeButtons />
+        <TypeInfo />
+      </div>
     </TypeCheckerProvider>
   )
 }
