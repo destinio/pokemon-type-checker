@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 export default function NavBar() {
   return (
-    <div className='max-w-lg m-auto p-4 flex justify-between items-center'>
+    <div className=' w-full max-w-lg m-auto p-4 flex justify-between items-center'>
       <Link to='/'>
         <h1 className='text-2xl font-bold'>Pokemon Utils</h1>
       </Link>

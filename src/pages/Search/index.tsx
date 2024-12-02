@@ -81,10 +81,7 @@ export default function Search() {
           disabled={!data}
         />
         {filtered ? (
-          <div
-            className='flex flex-col gap-2 overflow-auto'
-            style={{ height: 500 }}
-          >
+          <div className='flex flex-col gap-2'>
             {filtered.map(p => (
               <button
                 key={p.id}

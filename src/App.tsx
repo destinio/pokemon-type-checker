@@ -13,16 +13,21 @@ const queryClient = new QueryClient()
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <NavBar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/typecheck/:id?' element={<TypeChecker />} />
-        <Route path='/search' element={<Search />} />
-        <Route path='/pokemon/:id' element={<PokemonInfo />} />
-      </Routes>
-      {process.env.NODE_ENV === 'development' && (
-        <ReactQueryDevtools initialIsOpen={false} />
-      )}
+      <div className='h-screen flex flex-col'>
+        <NavBar />
+        <div className='flex-1 overflow-auto'>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/typecheck/:id?' element={<TypeChecker />} />
+            <Route path='/search' element={<Search />} />
+            <Route path='/pokemon/:id' element={<PokemonInfo />} />
+          </Routes>
+        </div>
+        <footer className='max-w-lg m-auto text-xs p-4 px-16 pt-2 pb-8 text-center'>
+          This website is not produced, endorsed, supported, or affiliated with
+          Nintendo or The Pokémon Company.
+        </footer>
+      </div>
     </QueryClientProvider>
   )
 }
