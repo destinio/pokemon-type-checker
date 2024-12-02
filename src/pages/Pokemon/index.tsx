@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useParams } from 'react-router'
+import { Link, useParams } from 'react-router'
 import { EvChainFull, renderEvChain } from '../../utils/renderEvChain'
 import { PokemonFull } from './pokemon'
 import { getTypeByName } from '../../components/TypeIcon'
@@ -75,7 +75,20 @@ export default function PokemonInfo() {
           <h4>Evelotion Chains:</h4>
           <div>
             {chains.map((chain, i) => (
-              <div key={i}>{chain}</div>
+              <div key={i} className='flex gap-2'>
+                {chain.map((name, i) => (
+                  <div>
+                    <Link
+                      to={`/pokemon/${name}`}
+                      key={i}
+                      className='hover:text-orange-400'
+                    >
+                      {name}
+                    </Link>
+                    <span>{i < chain.length - 1 ? ' >' : ''}</span>
+                  </div>
+                ))}
+              </div>
             ))}
           </div>
         </div>

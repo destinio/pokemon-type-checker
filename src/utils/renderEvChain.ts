@@ -45,11 +45,11 @@ export interface NameUrl {
 export function renderEvChain(chain: Chain) {
   const baseName = chain.species.name
 
-  const chains = [] as string[]
+  const chains = [] as string[][]
 
   function traverse(chain: Chain, path: string[]) {
     if (chain.evolves_to.length === 0) {
-      chains.push(path.join(' > '))
+      chains.push(path)
       return
     }
 

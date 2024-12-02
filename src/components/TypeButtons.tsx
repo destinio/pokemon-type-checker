@@ -1,7 +1,7 @@
 import classNames from 'classnames'
-import { pokemonTypes } from '../data/types'
 import { BaseSyntheticEvent } from 'react'
 import { useTypeChecker } from '../pages/TypeChecker/context/TypeCheckerProvider'
+import { pokemonTypesIcons } from './TypeIcon'
 
 export default function TypeButtons() {
   const shadow = '1px 1px 2px rgba(0,0,0,.7)'
@@ -21,7 +21,7 @@ export default function TypeButtons() {
 
   return (
     <div className='grid grid-cols-4 gap-2'>
-      {pokemonTypes.map((p, i) => (
+      {pokemonTypesIcons.map((p, i) => (
         <button
           key={`${i}`}
           className={classNames(
