@@ -2,7 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router'
 import { EvChainFull, renderEvChain } from '../../utils/renderEvChain'
 import { PokemonFull } from './pokemon'
-import { getTypeByName } from '../../components/TypeIcon'
+import { getTypeByName } from '../../utils/pokemonTypes'
+import { IoArrowBack } from 'react-icons/io5'
 
 export default function PokemonInfo() {
   const { id } = useParams()
@@ -54,6 +55,7 @@ export default function PokemonInfo() {
         }}
         className='bg-right bg-[length:200px] bg-no-repeat h-36 border-b-2 border-b-slate-700'
       >
+        {/* <IoArrowBack className='text-3xl' /> <Link to='/search'>Back</Link> */}
         <h1 className='text-3xl font-bold mb-2'>{data.name}</h1>
         <div className='mb-4'>Species: {species}</div>
         <ul className='flex gap-2'>

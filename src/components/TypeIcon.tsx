@@ -116,10 +116,6 @@ export const pokemonTypesIcons = [
   },
 ]
 
-export const getTypeByName = (name: string) => {
-  return pokemonTypesIcons.find(t => t.type === name) || pokemonTypesIcons[0]
-}
-
 interface ITypeIconProps {
   type: string
 }
