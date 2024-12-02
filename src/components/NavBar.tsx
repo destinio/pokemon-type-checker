@@ -5,9 +5,11 @@ import { Link } from 'react-router'
 export default function NavBar() {
   return (
     <div className='max-w-lg m-auto p-4 flex justify-between items-center'>
-      <h1 className='text-2xl font-bold'>Pokemon Utils</h1>
+      <Link to='/'>
+        <h1 className='text-2xl font-bold'>Pokemon Utils</h1>
+      </Link>
       <nav className='text-2xl flex gap-2'>
-        <Link to='/'>
+        <Link to='/typecheck'>
           <FaCodeCompare />
         </Link>
         <Link to='/search'>
