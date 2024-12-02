@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { BaseSyntheticEvent, useEffect, useRef, useState } from 'react'
+import { BaseSyntheticEvent, useState } from 'react'
 import { MdCatchingPokemon } from 'react-icons/md'
 import { useNavigate } from 'react-router'
 

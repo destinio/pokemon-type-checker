@@ -1,7 +1,6 @@
 import { FaSearch } from 'react-icons/fa'
 import { FaCodeCompare } from 'react-icons/fa6'
 import { Link } from 'react-router'
-import { pokemonTypesIcons } from '../../components/TypeIcon'
 import { getTypeByName } from '../../utils/pokemonTypes'
 
 const apps = [
