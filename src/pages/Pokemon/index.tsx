@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
+import { EvChainFull, renderEvChain } from '../../utils/renderEvChain'
 import { PokemonFull } from './pokemon'
 
 export default function PokemonInfo() {
@@ -10,7 +11,7 @@ export default function PokemonInfo() {
     staleTime: 1000 * 60 * 60 * 24,
     queryFn: async () => {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      const done = await response.json()
+      const done = (await response.json()) as PokemonFull
 
       const speciesResponse = await fetch(done.species.url)
       const species = await speciesResponse.json()
@@ -18,14 +19,12 @@ export default function PokemonInfo() {
       const evChainUrl = species.evolution_chain.url
 
       const evChainResponse = await fetch(evChainUrl)
-      const evChain = await evChainResponse.json()
+      const evChain = (await evChainResponse.json()) as EvChainFull
 
       const returnData = {
         ...done,
         evChain,
       }
-
-      console.log(evChain)
 
       return returnData
     },
@@ -38,6 +37,8 @@ export default function PokemonInfo() {
   if (!data) {
     return <div className='max-w-lg m-auto p-4'>No Data!</div>
   }
+
+  const { species, chains } = renderEvChain(data.evChain.chain)
 
   return (
     <div className='max-w-lg m-auto p-4'>
@@ -54,15 +55,27 @@ export default function PokemonInfo() {
 
       <div>
         <h2>Ev Chain</h2>
+        <div>Species: {species}</div>
         <div>
-          {data.evChain.chain.species.name} {'>'}
-          {data.evChain.chain.evolves_to.map(e => {
-            const chain = e.species.name
-
-            return <span key={e.species.name}>{`${chain} >`}</span>
-          })}
+          <h4>Evelotion Chains:</h4>
+          <div>
+            {chains.map((chain, i) => (
+              <div key={i}>{chain}</div>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* <div>
+        <h2>Ev Chain</h2>
+        <div>
+          {data.evChain.chain.evolves_to.map(e => {
+            const chain = e.species.name + ' > '
+
+            return <span key={e.species.name}>{chain}</span>
+          })}
+        </div>
+      </div> */}
     </div>
   )
 }
