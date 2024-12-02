@@ -41,21 +41,34 @@ export default function PokemonInfo() {
   const { species, chains } = renderEvChain(data.evChain.chain)
 
   return (
-    <div className='max-w-lg m-auto p-4'>
-      <h1 className='text-2xl font-bold'>{data.name}</h1>
-      <img src={data.sprites.other.dream_world.front_default} alt={data.name} />
-      <div>
-        <h2>Types</h2>
+    <div className='max-w-lg m-auto p-4 flex flex-col gap-8'>
+      <header className=''>
+        <div
+          style={{
+            backgroundImage: `url('${data.sprites.other.home.front_default}')`,
+          }}
+          className='bg-right-top'
+        >
+          <h1 className='text-3xl font-bold mb-2'>{data.name}</h1>
+          <div>Species: {species}</div>
+        </div>
+        {/* <img
+            src={data.sprites.other.dream_world.front_default}
+            alt={data.name}
+          /> */}
+      </header>
+
+      <section className=''>
+        <h2 className='text-2xl mb-4'>Types</h2>
         <ul>
           {data.types.map((t, i) => (
             <li key={`${t.type.name}-${i}`}>{t.type.name}</li>
           ))}
         </ul>
-      </div>
+      </section>
 
-      <div>
-        <h2>Ev Chain</h2>
-        <div>Species: {species}</div>
+      <section>
+        <h2 className='text-2xl mb-4'>Evelution Chain(s)</h2>
         <div>
           <h4>Evelotion Chains:</h4>
           <div>
@@ -64,18 +77,7 @@ export default function PokemonInfo() {
             ))}
           </div>
         </div>
-      </div>
-
-      {/* <div>
-        <h2>Ev Chain</h2>
-        <div>
-          {data.evChain.chain.evolves_to.map(e => {
-            const chain = e.species.name + ' > '
-
-            return <span key={e.species.name}>{chain}</span>
-          })}
-        </div>
-      </div> */}
+      </section>
     </div>
   )
 }
