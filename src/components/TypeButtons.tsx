@@ -21,9 +21,9 @@ export default function TypeButtons() {
 
   return (
     <div className='grid grid-cols-4 gap-2'>
-      {pokemonTypes.map((i, p) => (
+      {pokemonTypes.map((p, i) => (
         <button
-          key={`${p.type}-${i}`}
+          key={`${i}`}
           className={classNames(
             'p-2 rounded-sm border border-black overflow-hidden text-xl hover:opacity-100 hover:scale-105',
             {
