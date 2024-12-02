@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
 import { EvChainFull, renderEvChain } from '../../utils/renderEvChain'
 import { PokemonFull } from './pokemon'
-import { getTypeByName, pokemonTypesIcons } from '../../components/TypeIcon'
+import { getTypeByName } from '../../components/TypeIcon'
 
 export default function PokemonInfo() {
   const { id } = useParams()
