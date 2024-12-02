@@ -64,7 +64,7 @@ export default function PokemonInfo() {
         className='bg-right bg-[length:200px] bg-no-repeat h-44 border-b-2 border-b-slate-700'
       >
         {/* <IoArrowBack className='text-3xl' /> <Link to='/search'>Back</Link> */}
-        <h1 className='text-3xl font-bold mb-2'>{data.name}</h1>
+        <h1 className='text-4xl font-bold mb-2'>{data.name}</h1>
         <div className='mb-6'>
           <p>Species:</p>
           <p>{species}</p>

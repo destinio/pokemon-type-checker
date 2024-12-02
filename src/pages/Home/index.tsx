@@ -1,6 +1,8 @@
 import { FaSearch } from 'react-icons/fa'
 import { FaCodeCompare } from 'react-icons/fa6'
 import { Link } from 'react-router'
+import { pokemonTypesIcons } from '../../components/TypeIcon'
+import { getTypeByName } from '../../utils/pokemonTypes'
 
 const apps = [
   {
@@ -17,6 +19,8 @@ const apps = [
   },
 ]
 
+const { icon, color } = getTypeByName('electric')
+
 export default function Home() {
   return (
     <div className='max-w-lg m-auto px-4'>
@@ -27,9 +31,18 @@ export default function Home() {
           className='w-32 h-32 inline'
         />
         <h1 className='mb-4 text-lg font-bold'>Welcome to Pokemon Utils!</h1>
-        <p>
+        <p className='mb-4'>
           This is a collection of tools to help you learn more about Pokemon and
           help with the various games.
+        </p>
+        <p style={{ color }} className='flex items-center gap-1'>
+          {icon} <span>Powered by</span>
+          <a
+            className='text-lg underline hover:text-orange-300 decoration-dotted underline-offset-4 border-dotted'
+            href='https://pokeapi.co/'
+          >
+            pokeapi.co
+          </a>
         </p>
       </div>
       <div className='flex flex-col gap-4'>
