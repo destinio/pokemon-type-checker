@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
 import { EvChainFull, renderEvChain } from '../../utils/renderEvChain'
 import { PokemonFull } from './pokemon'
+import { getTypeByName, pokemonTypesIcons } from '../../components/TypeIcon'
 
 export default function PokemonInfo() {
   const { id } = useParams()
@@ -40,32 +41,33 @@ export default function PokemonInfo() {
 
   const { species, chains } = renderEvChain(data.evChain.chain)
 
+  const types = data.types.map(t => {
+    return getTypeByName(t.type.name)
+  })
+
   return (
     <div className='max-w-lg m-auto p-4 flex flex-col gap-8'>
-      <header className=''>
-        <div
-          style={{
-            backgroundImage: `url('${data.sprites.other.home.front_default}')`,
-          }}
-          className='bg-right-top'
-        >
-          <h1 className='text-3xl font-bold mb-2'>{data.name}</h1>
-          <div>Species: {species}</div>
-        </div>
-        {/* <img
-            src={data.sprites.other.dream_world.front_default}
-            alt={data.name}
-          /> */}
-      </header>
-
-      <section className=''>
-        <h2 className='text-2xl mb-4'>Types</h2>
-        <ul>
-          {data.types.map((t, i) => (
-            <li key={`${t.type.name}-${i}`}>{t.type.name}</li>
+      <header
+        style={{
+          backgroundImage: `url('${data.sprites.other.home.front_default}')`,
+          color: types[0].color,
+        }}
+        className='bg-right bg-[length:200px] bg-no-repeat h-36 border-b-2 border-b-slate-700'
+      >
+        <h1 className='text-3xl font-bold mb-2'>{data.name}</h1>
+        <div className='mb-4'>Species: {species}</div>
+        <ul className='flex gap-2'>
+          {types.map((type, i) => (
+            <li
+              key={i}
+              style={{ color: type.color }}
+              className='flex gap-2 items-center text-2xl'
+            >
+              {type.icon}
+            </li>
           ))}
         </ul>
-      </section>
+      </header>
 
       <section>
         <h2 className='text-2xl mb-4'>Evelution Chain(s)</h2>
