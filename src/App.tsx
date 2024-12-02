@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import TypeChecker from './pages/TypeChecker'
 import Search from './pages/Search'
 import PokemonInfo from './pages/Pokemon'
+import Home from './pages/Home'
 
 const queryClient = new QueryClient()
 
@@ -14,7 +15,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <NavBar />
       <Routes>
-        <Route path='/' element={<TypeChecker />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/typecheck/:id?' element={<TypeChecker />} />
         <Route path='/search' element={<Search />} />
         <Route path='/pokemon/:id' element={<PokemonInfo />} />
       </Routes>

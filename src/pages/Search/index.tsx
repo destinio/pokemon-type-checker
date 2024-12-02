@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { useRef, useState } from 'react'
+import { BaseSyntheticEvent, useState } from 'react'
+import { MdCatchingPokemon } from 'react-icons/md'
 import { useNavigate } from 'react-router'
 
 interface PokemonSimp {
@@ -36,7 +37,13 @@ export default function Search() {
     },
   })
 
-  const searchRef = useRef<HTMLInputElement>(null!)
+  // const searchRef = useRef<HTMLInputElement>(null!)
+  const searchRef = (element: HTMLInputElement | null) => {
+    if (element) {
+      element.focus()
+    }
+  }
+
   const [filtered, setFiltered] = useState<PokemonSearch[]>(null!)
 
   if (isLoading || isFetching) {
@@ -47,16 +54,14 @@ export default function Search() {
     return <div className='max-w-lg m-auto p-4'>No Data!</div>
   }
 
-  const handleSearchChange = () => {
-    const search = searchRef.current.value.toLowerCase()
+  const handleSearchChange = (e: BaseSyntheticEvent) => {
+    const search = e.target.value.toLowerCase()
 
     if (!search || search.length < 2) {
       setFiltered(null!)
       return
     }
-
     const filtered = data.filter(p => p.name.includes(search))
-
     setFiltered(filtered)
   }
 
@@ -76,21 +81,37 @@ export default function Search() {
           disabled={!data}
         />
         {filtered ? (
-          <div className='flex flex-col gap-2'>
+          <div
+            className='flex flex-col gap-2 overflow-auto'
+            style={{ height: 500 }}
+          >
             {filtered.map(p => (
-              <div
+              <button
                 key={p.id}
-                className='flex justify-between items-center cursor-pointer hover:border-orange-400 pr-4 border-2 rounded-sm'
+                className='flex justify-between items-center cursor-pointer hover:border-orange-400 focus:outline-orange-400 focus:outline-offset-1 pr-4 border-2 rounded-sm'
                 onClick={() => handlePokemonClick(p.id)}
               >
                 <div className='flex items-center '>
-                  <img src={p.image} alt={p.name} />
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    style={{ display: 'none' }}
+                    onLoad={e => {
+                      const target = e.currentTarget as HTMLImageElement
+
+                      target.style.display = 'block'
+                      target.nextSibling?.remove()
+                    }}
+                  />
+                  <div className='loader h-28 w-28 grid place-content-center'>
+                    <MdCatchingPokemon className='text-4xl text-slate-400 animate-spin' />
+                  </div>
                   <h3 className='text-3xl'>{p.name}</h3>
                 </div>
                 <div className='text-slate-400 font-extrabold text-3xl'>
                   # {p.id}
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         ) : null}

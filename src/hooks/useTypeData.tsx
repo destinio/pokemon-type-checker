@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 
 export interface ITypeInfo {
   damage_relations: IDamageRelations
+  name: string
 }
 
 interface IInfo {

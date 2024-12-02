@@ -26,7 +26,7 @@ import { useTypeChecker } from '../pages/TypeChecker/context/TypeCheckerProvider
 export const pokemonTypesIcons = [
   {
     type: 'normal',
-    color: '#AAAA99',
+    color: '#CC9',
     icon: <MdStars />,
   },
   {
@@ -41,7 +41,7 @@ export const pokemonTypesIcons = [
   },
   {
     type: 'poison',
-    color: '#AA5599',
+    color: '#CD66B8',
     icon: <GiSpill />,
   },
   {
@@ -61,7 +61,7 @@ export const pokemonTypesIcons = [
   },
   {
     type: 'ghost',
-    color: '#6666BB',
+    color: '#7575D6',
     icon: <FaGhost />,
   },
   {
@@ -106,7 +106,7 @@ export const pokemonTypesIcons = [
   },
   {
     type: 'dark',
-    color: '#775543',
+    color: '#C58D70',
     icon: <FaMoon />,
   },
   {
@@ -115,10 +115,6 @@ export const pokemonTypesIcons = [
     icon: <GiFairy />,
   },
 ]
-
-export const getTypeByName = (name: string) => {
-  return pokemonTypesIcons.find(t => t.type === name) || pokemonTypesIcons[0]
-}
 
 interface ITypeIconProps {
   type: string
