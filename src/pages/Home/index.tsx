@@ -20,12 +20,14 @@ const apps = [
 
 const { icon, color } = getTypeByName('electric')
 
+const randomNumOneToOneFiftyOne = Math.floor(Math.random() * 151) + 1
+
 export default function Home() {
   return (
     <div className='max-w-lg m-auto px-4'>
       <div className='m-auto px-8 pb-8 text-center flex flex-col items-center'>
         <img
-          src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png'
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${randomNumOneToOneFiftyOne}.png`}
           alt=''
           className='w-32 h-32 inline'
         />
@@ -35,7 +37,7 @@ export default function Home() {
           help with the various games.
         </p>
         <p style={{ color }} className='flex items-center gap-1'>
-          {icon} <span>Powered by</span>
+          {icon} <span>powered by</span>
           <a
             className='text-lg underline hover:text-orange-300 decoration-dotted underline-offset-4 border-dotted'
             href='https://pokeapi.co/'
