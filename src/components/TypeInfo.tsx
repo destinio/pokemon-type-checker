@@ -17,8 +17,8 @@ export default function TypeInfo() {
 
   return (
     <div className='grid grid-cols-2 gap-4 p-6'>
-      {Object.entries(typeInfo.damage_relations).map(([key, value]) => (
-        <div key={key}>
+      {Object.entries(typeInfo.damage_relations).map(([key, value], i) => (
+        <div key={`${i}`}>
           <h3 className='text-xl mb-2'>{convertInfoHeader(key)}</h3>
           <div className='flex flex-wrap gap-4'>
             {value.map((v: Info, i: number) => (

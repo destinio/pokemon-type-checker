@@ -22,7 +22,8 @@ import {
 import { MdStars } from 'react-icons/md'
 import { useTypeChecker } from '../pages/TypeChecker/context/TypeCheckerProvider'
 
-const pokemonTypes = [
+// eslint-disable-next-line react-refresh/only-export-components
+export const pokemonTypesIcons = [
   {
     type: 'normal',
     color: '#AAAA99',
@@ -115,12 +116,16 @@ const pokemonTypes = [
   },
 ]
 
+export const getTypeByName = (name: string) => {
+  return pokemonTypesIcons.find(t => t.type === name) || pokemonTypesIcons[0]
+}
+
 interface ITypeIconProps {
   type: string
 }
 
 export default function TypeIcon({ type }: ITypeIconProps) {
-  const pokemonType = pokemonTypes.find(t => t.type === type)
+  const pokemonType = pokemonTypesIcons.find(t => t.type === type)
 
   const { setCurrentType } = useTypeChecker()
 
