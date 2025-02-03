@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react'
-import { ITypeInfo, useTypeData } from '../../../hooks/useTypeData'
-import { useParams } from 'react-router'
+import React, { useContext, useEffect, useState } from "react";
+import { ITypeInfo, useTypeData } from "../../../hooks/useTypeData";
+import { useParams } from "react-router";
 
 interface ITypeCheckerValues {
-  currentType: string | null
-  setCurrentType: (type: string) => void
-  typeData: ITypeInfo | undefined
-  isLoading: boolean
+  currentType: string | null;
+  setCurrentType: (type: string) => void;
+  typeData: ITypeInfo | undefined;
+  isLoading: boolean;
 }
 
 const TypeCheckerContext = React.createContext<ITypeCheckerValues>({
@@ -14,43 +14,50 @@ const TypeCheckerContext = React.createContext<ITypeCheckerValues>({
   setCurrentType: () => {},
   typeData: null!,
   isLoading: true,
-})
+});
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useTypeChecker = () =>
-  useContext<ITypeCheckerValues>(TypeCheckerContext)
+  useContext<ITypeCheckerValues>(TypeCheckerContext);
 
 interface ITypeCheckerProps {
-  children: React.ReactNode
+  children: React.ReactNode;
+  multiSelect?: boolean;
 }
 
-export function TypeCheckerProvider({ children }: ITypeCheckerProps) {
-  const { id } = useParams()
-  const [currentType, setCurrentType] = React.useState<string>(null!)
-  const [typeData, setTypeData] = React.useState<ITypeInfo | undefined>(null!)
+export function TypeCheckerProvider({
+  children,
+  multiSelect = false,
+}: ITypeCheckerProps) {
+  const { id } = useParams();
+  const [currentType, setCurrentType] = useState<string>(null!);
+  const [typeData, setTypeData] = useState<ITypeInfo | undefined>(null!);
 
-  const { data, isFetching, isLoading } = useTypeData(currentType)
+  const { data, isFetching, isLoading } = useTypeData(currentType);
+
+  // TODO: Add support for multiSelect
+  console.log({ multiSelect });
 
   useEffect(() => {
     if (id) {
-      setCurrentType(id)
+      setCurrentType(id);
     }
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
-    setTypeData(data)
-  }, [data])
+    setTypeData(data);
+  }, [data]);
 
   const value = {
     currentType,
     setCurrentType,
     typeData,
     isLoading: isFetching || isLoading,
-  }
+  };
 
   return (
     <TypeCheckerContext.Provider value={value}>
       <div>{children}</div>
     </TypeCheckerContext.Provider>
-  )
+  );
 }

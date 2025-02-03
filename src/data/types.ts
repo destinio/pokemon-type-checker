@@ -1,55 +1,267 @@
-import { pokemonTypesIcons } from '../components/TypeIcon'
+export const pokemonTypesInfo = {
+  normal: { color: "#CC9" },
+  fighting: { color: "#BB5544" },
+  flying: { color: "#8899FF" },
+  poison: { color: "#CD66B8" },
+  ground: { color: "#DDBB54" },
+  rock: { color: "#BBAA66" },
+  bug: { color: "#AABB22" },
+  ghost: { color: "#7575D6" },
+  steel: { color: "#AAAABB" },
+  fire: { color: "#FF4522" },
+  water: { color: "#3399FF" },
+  grass: { color: "#77CC55" },
+  electric: { color: "#FFCC33" },
+  psychic: { color: "#FF5599" },
+  ice: { color: "#66CCFF" },
+  dragon: { color: "#7766EE" },
+  dark: { color: "#C58D70" },
+  fairy: { color: "#EE99EE" },
+};
 
-export function getTypeInfo(type: string) {
-  return pokemonTypesIcons.find(t => t.type === type)
-}
+export const typesData = {
+  normal: {
+    name: "normal",
+    damage_relations: {
+      double_damage_from: ["fighting"],
+      double_damage_to: null,
+      half_damage_from: null,
+      half_damage_to: ["rock", "steel"],
+      no_damage_from: ["ghost"],
+      no_damage_to: ["ghost"],
+    },
+    color: "#CC9",
+  },
+  fighting: {
+    name: "fighting",
+    damage_relations: {
+      double_damage_from: ["flying", "psychic", "fairy"],
+      double_damage_to: ["normal", "rock", "steel", "ice", "dark"],
+      half_damage_from: ["rock", "bug", "dark"],
+      half_damage_to: ["flying", "poison", "bug", "psychic", "fairy"],
+      no_damage_from: null,
+      no_damage_to: ["ghost"],
+    },
+    color: "#BB5544",
+  },
+  flying: {
+    name: "flying",
+    damage_relations: {
+      double_damage_from: ["rock", "electric", "ice"],
+      double_damage_to: ["fighting", "bug", "grass"],
+      half_damage_from: ["fighting", "bug", "grass"],
+      half_damage_to: ["rock", "steel", "electric"],
+      no_damage_from: ["ground"],
+      no_damage_to: null,
+    },
+    color: "#8899FF",
+  },
+  poison: {
+    name: "poison",
+    damage_relations: {
+      double_damage_from: ["ground", "psychic"],
+      double_damage_to: ["grass", "fairy"],
+      half_damage_from: ["fighting", "poison", "bug", "grass", "fairy"],
+      half_damage_to: ["poison", "ground", "rock", "ghost"],
+      no_damage_from: null,
+      no_damage_to: ["steel"],
+    },
+    color: "#CD66B8",
+  },
+  ground: {
+    name: "ground",
+    damage_relations: {
+      double_damage_from: ["water", "grass", "ice"],
+      double_damage_to: ["poison", "rock", "steel", "fire", "electric"],
+      half_damage_from: ["poison", "rock"],
+      half_damage_to: ["bug", "grass"],
+      no_damage_from: ["electric"],
+      no_damage_to: ["flying"],
+    },
+    color: "#DDBB54",
+  },
+  rock: {
+    name: "rock",
+    damage_relations: {
+      double_damage_from: ["fighting", "ground", "steel", "water", "grass"],
+      double_damage_to: ["flying", "bug", "fire", "ice"],
+      half_damage_from: ["normal", "flying", "poison", "fire"],
+      half_damage_to: ["fighting", "ground", "steel"],
+      no_damage_from: null,
+      no_damage_to: null,
+    },
+    color: "#BBAA66",
+  },
+  bug: {
+    name: "bug",
+    damage_relations: {
+      double_damage_from: ["flying", "rock", "fire"],
+      double_damage_to: ["grass", "psychic", "dark"],
+      half_damage_from: ["fighting", "ground", "grass"],
+      half_damage_to: [
+        "fighting",
+        "flying",
+        "poison",
+        "ghost",
+        "steel",
+        "fire",
+        "fairy",
+      ],
+      no_damage_from: null,
+      no_damage_to: null,
+    },
+    color: "#AABB22",
+  },
+  ghost: {
+    name: "ghost",
+    damage_relations: {
+      double_damage_from: ["ghost", "dark"],
+      double_damage_to: ["ghost", "psychic"],
+      half_damage_from: ["poison", "bug"],
+      half_damage_to: ["dark"],
+      no_damage_from: ["normal", "fighting"],
+      no_damage_to: ["normal"],
+    },
+    color: "#7575D6",
+  },
+  steel: {
+    name: "steel",
+    damage_relations: {
+      double_damage_from: ["fighting", "ground", "fire"],
+      double_damage_to: ["rock", "ice", "fairy"],
+      half_damage_from: [
+        "normal",
+        "flying",
+        "rock",
+        "bug",
+        "steel",
+        "grass",
+        "psychic",
+        "ice",
+        "dragon",
+        "fairy",
+      ],
+      half_damage_to: ["steel", "fire", "water", "electric"],
+      no_damage_from: ["poison"],
+      no_damage_to: null,
+    },
+    color: "#AAAABB",
+  },
+  fire: {
+    name: "fire",
+    damage_relations: {
+      double_damage_from: ["ground", "rock", "water"],
+      double_damage_to: ["bug", "steel", "grass", "ice"],
+      half_damage_from: ["bug", "steel", "fire", "grass", "ice", "fairy"],
+      half_damage_to: ["rock", "fire", "water", "dragon"],
+      no_damage_from: null,
+      no_damage_to: null,
+    },
+    color: "#FF4522",
+  },
+  water: {
+    name: "water",
+    damage_relations: {
+      double_damage_from: ["grass", "electric"],
+      double_damage_to: ["ground", "rock", "fire"],
+      half_damage_from: ["steel", "fire", "water", "ice"],
+      half_damage_to: ["water", "grass", "dragon"],
+      no_damage_from: null,
+      no_damage_to: null,
+    },
+    color: "#3399FF",
+  },
+  grass: {
+    name: "grass",
+    damage_relations: {
+      double_damage_from: ["flying", "poison", "bug", "fire", "ice"],
+      double_damage_to: ["ground", "rock", "water"],
+      half_damage_from: ["ground", "water", "grass", "electric"],
+      half_damage_to: [
+        "flying",
+        "poison",
+        "bug",
+        "steel",
+        "fire",
+        "grass",
+        "dragon",
+      ],
+      no_damage_from: null,
+      no_damage_to: null,
+    },
+    color: "#77CC55",
+  },
+  electric: {
+    name: "electric",
+    damage_relations: {
+      double_damage_from: ["ground"],
+      double_damage_to: ["flying", "water"],
+      half_damage_from: ["flying", "steel", "electric"],
+      half_damage_to: ["grass", "electric", "dragon"],
+      no_damage_from: null,
+      no_damage_to: ["ground"],
+    },
+    color: "#FFCC33",
+  },
+  psychic: {
+    name: "psychic",
+    damage_relations: {
+      double_damage_from: ["bug", "ghost", "dark"],
+      double_damage_to: ["fighting", "poison"],
+      half_damage_from: ["fighting", "psychic"],
+      half_damage_to: ["steel", "psychic"],
+      no_damage_from: null,
+      no_damage_to: ["dark"],
+    },
+    color: "#FF5599",
+  },
+  ice: {
+    name: "ice",
+    damage_relations: {
+      double_damage_from: ["fighting", "rock", "steel", "fire"],
+      double_damage_to: ["flying", "ground", "grass", "dragon"],
+      half_damage_from: ["ice"],
+      half_damage_to: ["steel", "fire", "water", "ice"],
+      no_damage_from: null,
+      no_damage_to: null,
+    },
+    color: "#66CCFF",
+  },
+  dragon: {
+    name: "dragon",
+    damage_relations: {
+      double_damage_from: ["ice", "dragon", "fairy"],
+      double_damage_to: ["dragon"],
+      half_damage_from: ["fire", "water", "grass", "electric"],
+      half_damage_to: ["steel"],
+      no_damage_from: null,
+      no_damage_to: ["fairy"],
+    },
+    color: "#7766EE",
+  },
+  dark: {
+    name: "dark",
+    damage_relations: {
+      double_damage_from: ["fighting", "bug", "fairy"],
+      double_damage_to: ["ghost", "psychic"],
+      half_damage_from: ["ghost", "dark"],
+      half_damage_to: ["fighting", "dark", "fairy"],
+      no_damage_from: ["psychic"],
+      no_damage_to: null,
+    },
+    color: "#C58D70",
+  },
+  fairy: {
+    name: "fairy",
+    damage_relations: {
+      double_damage_from: ["poison", "steel"],
+      double_damage_to: ["fighting", "dragon", "dark"],
+      half_damage_from: ["fighting", "bug", "dark"],
+      half_damage_to: ["poison", "steel", "fire"],
+      no_damage_from: ["dragon"],
+      no_damage_to: null,
+    },
+    color: "#EE99EE",
+  },
+};
 
-export interface Info {
-  name: string
-  url: string
-}
-
-export interface TypeRelations {
-  double_damage_from: Info[]
-  double_damage_to: Info[]
-  half_damage_from: Info[]
-  half_damage_to: Info[]
-  no_damage_from: Info[]
-  no_damage_to: Info[]
-}
-
-export async function getTypeApiData(type: string) {
-  const res = await fetch(`https://pokeapi.co/api/v2/type/${type}`)
-  const data = await res.json()
-  return data['damage_relations'] as TypeRelations
-}
-
-export function convertInfoHeader(title: string) {
-  let header
-
-  switch (title) {
-    case 'double_damage_from':
-      header = 'Weak to (2x)'
-      break
-    case 'double_damage_to':
-      header = 'Strong against (2x)'
-      break
-    case 'half_damage_from':
-      header = 'Resistant to (.5x)'
-      break
-    case 'half_damage_to':
-      header = 'Weak against (.5x)'
-      break
-    case 'no_damage_from':
-      header = 'Immune to (0x)'
-      break
-    case 'no_damage_to':
-      header = 'No effect on (0x)'
-      break
-    default:
-      header = title
-      break
-  }
-
-  return header
-}
