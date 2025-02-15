@@ -1,56 +1,56 @@
-import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router";
-import { EvChainFull, renderEvChain } from "../../utils/renderEvChain";
-import { PokemonFull } from "./pokemon";
-import { getTypeByName } from "../../utils/pokemonTypes";
-import { ITypeInfo } from "../../hooks/useTypeData";
-import { convertInfoHeader } from "../../data/types";
+import { useQuery } from '@tanstack/react-query'
+import { Link, useParams } from 'react-router'
+import { EvChainFull, renderEvChain } from '../../utils/renderEvChain'
+import { PokemonFull } from './pokemon'
+import { getTypeByName } from '../../utils/pokemonTypes'
+import { ITypeInfo } from '../../hooks/useTypeData'
+import { convertInfoHeader } from '../../data/types'
 
 export default function PokemonInfo() {
-  const { id } = useParams();
+  const { id } = useParams()
 
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: ["pokemon", id],
+    queryKey: ['pokemon', id],
     staleTime: 1000 * 60 * 60 * 24,
     queryFn: async () => {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-      const done = (await response.json()) as PokemonFull;
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+      const done = (await response.json()) as PokemonFull
 
-      const speciesResponse = await fetch(done.species.url);
-      const species = await speciesResponse.json();
+      const speciesResponse = await fetch(done.species.url)
+      const species = await speciesResponse.json()
 
-      const evChainUrl = species.evolution_chain.url;
+      const evChainUrl = species.evolution_chain.url
 
-      const evChainResponse = await fetch(evChainUrl);
-      const evChain = (await evChainResponse.json()) as EvChainFull;
+      const evChainResponse = await fetch(evChainUrl)
+      const evChain = (await evChainResponse.json()) as EvChainFull
 
-      const typesData = [] as ITypeInfo[];
+      const typesData = [] as ITypeInfo[]
 
       for (const type of done.types) {
-        const typeResponse = await fetch(type.type.url);
-        const typeData = await typeResponse.json();
-        typesData.push(typeData);
+        const typeResponse = await fetch(type.type.url)
+        const typeData = await typeResponse.json()
+        typesData.push(typeData)
       }
 
       const returnData = {
         ...done,
         evChain,
         typesData,
-      };
+      }
 
-      return returnData;
+      return returnData
     },
-  });
+  })
 
   if (isLoading || isFetching) {
-    return <div className="max-w-lg m-auto p-4">Loading...</div>;
+    return <div className="max-w-lg m-auto p-4">Loading...</div>
   }
 
   if (!data) {
-    return <div className="max-w-lg m-auto p-4">No Data!</div>;
+    return <div className="max-w-lg m-auto p-4">No Data!</div>
   }
 
-  const { species, chains } = renderEvChain(data.evChain.chain);
+  const { species, chains } = renderEvChain(data.evChain.chain)
 
   return (
     <div className="max-w-lg m-auto p-4 flex flex-col gap-8">
@@ -69,7 +69,7 @@ export default function PokemonInfo() {
         </div>
         <ul className="flex gap-2 mb-4">
           {data.typesData.map((type, i) => {
-            const typeData = getTypeByName(type.name);
+            const typeData = getTypeByName(type.name)
             return (
               <li
                 key={i}
@@ -78,7 +78,7 @@ export default function PokemonInfo() {
               >
                 <Link to={`/typecheck/${type.name}`}>{typeData.icon}</Link>
               </li>
-            );
+            )
           })}
         </ul>
       </header>
@@ -97,7 +97,7 @@ export default function PokemonInfo() {
                   >
                     {name}
                   </Link>
-                  <span>{i < chain.length - 1 ? " >" : ""}</span>
+                  <span>{i < chain.length - 1 ? ' >' : ''}</span>
                 </div>
               ))}
             </div>
@@ -109,7 +109,7 @@ export default function PokemonInfo() {
         <h2 className="text-2xl mb-4 font-extrabold">Type Details:</h2>
         <div className="flex flex-col gap-4">
           {data.typesData.map((type, i) => {
-            const { type: name, color, icon } = getTypeByName(type.name);
+            const { type: name, color, icon } = getTypeByName(type.name)
             return (
               <div key={`${type.name}-${i}`} className="">
                 <h3
@@ -128,8 +128,8 @@ export default function PokemonInfo() {
                           <div className="flex flex-wrap w-2/3 gap-1 gap-y-3 text-2xl">
                             {value.map((v: { name: string }, i: number) => {
                               const { icon, color, type } = getTypeByName(
-                                v.name,
-                              );
+                                v.name
+                              )
                               return (
                                 <Link
                                   to={`/typecheck/${type}`}
@@ -138,19 +138,19 @@ export default function PokemonInfo() {
                                 >
                                   {icon}
                                 </Link>
-                              );
+                              )
                             })}
                           </div>
                         </div>
-                      );
-                    },
+                      )
+                    }
                   )}
                 </div>
               </div>
-            );
+            )
           })}
         </div>
       </section>
     </div>
-  );
+  )
 }
