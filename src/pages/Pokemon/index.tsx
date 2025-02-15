@@ -43,40 +43,38 @@ export default function PokemonInfo() {
   })
 
   if (isLoading || isFetching) {
-    return <div className='max-w-lg m-auto p-4'>Loading...</div>
+    return <div className="max-w-lg m-auto p-4">Loading...</div>
   }
 
   if (!data) {
-    return <div className='max-w-lg m-auto p-4'>No Data!</div>
+    return <div className="max-w-lg m-auto p-4">No Data!</div>
   }
 
   const { species, chains } = renderEvChain(data.evChain.chain)
 
-  console.log(data.typesData[0].damage_relations)
-
   return (
-    <div className='max-w-lg m-auto p-4 flex flex-col gap-8'>
+    <div className="max-w-lg m-auto p-4 flex flex-col gap-8">
       <header
         style={{
           backgroundImage: `url('${data.sprites.other.home.front_default}')`,
           color: getTypeByName(data.typesData[0].name).color,
         }}
-        className='bg-right bg-[length:200px] bg-no-repeat h-44 border-b-2 border-b-slate-700'
+        className="bg-right bg-[length:200px] bg-no-repeat h-44 border-b-2 border-b-slate-700"
       >
         {/* <IoArrowBack className='text-3xl' /> <Link to='/search'>Back</Link> */}
-        <h1 className='text-4xl font-bold mb-2'>{data.name}</h1>
-        <div className='mb-6'>
+        <h1 className="text-4xl font-bold mb-2">{data.name}</h1>
+        <div className="mb-6">
           <p>Species:</p>
           <p>{species}</p>
         </div>
-        <ul className='flex gap-2 mb-4'>
+        <ul className="flex gap-2 mb-4">
           {data.typesData.map((type, i) => {
             const typeData = getTypeByName(type.name)
             return (
               <li
                 key={i}
                 style={{ color: typeData.color }}
-                className='flex gap-2 items-center text-2xl hover:scale-110 focus:scale-110'
+                className="flex gap-2 items-center text-2xl hover:scale-110 focus:scale-110"
               >
                 <Link to={`/typecheck/${type.name}`}>{typeData.icon}</Link>
               </li>
@@ -86,16 +84,16 @@ export default function PokemonInfo() {
       </header>
 
       <section>
-        <h2 className='text-2xl mb-4 font-extrabold'>Evelution Chain(s)</h2>
+        <h2 className="text-2xl mb-4 font-extrabold">Evelution Chain(s)</h2>
         <div>
           {chains.map((chain, i) => (
-            <div key={i} className='flex gap-2'>
+            <div key={i} className="flex gap-2">
               {chain.map((name, i) => (
                 <div key={`${name}-${i}`}>
                   <Link
                     to={`/pokemon/${name}`}
                     key={i}
-                    className='hover:text-orange-400'
+                    className="hover:text-orange-400"
                   >
                     {name}
                   </Link>
@@ -108,29 +106,29 @@ export default function PokemonInfo() {
       </section>
 
       <section>
-        <h2 className='text-2xl mb-4 font-extrabold'>Type Details:</h2>
-        <div className='flex flex-col gap-4'>
+        <h2 className="text-2xl mb-4 font-extrabold">Type Details:</h2>
+        <div className="flex flex-col gap-4">
           {data.typesData.map((type, i) => {
             const { type: name, color, icon } = getTypeByName(type.name)
             return (
-              <div key={`${type.name}-${i}`} className=''>
+              <div key={`${type.name}-${i}`} className="">
                 <h3
                   style={{ color, borderColor: color }}
-                  className='text-2xl font-bold mb-4 flex gap-2 items-center border-b-2 pb-4'
+                  className="text-2xl font-bold mb-4 flex gap-2 items-center border-b-2 pb-4"
                 >
                   {icon} {name}
                 </h3>
-                <div className='grid grid-cols-2 gap-4'>
+                <div className="grid grid-cols-2 gap-4">
                   {Object.entries(type.damage_relations).map(
                     ([name, value], i) => {
                       return (
                         <div key={`${name}-${i}`}>
-                          <div className='mb-2'>{convertInfoHeader(name)}</div>
+                          <div className="mb-2">{convertInfoHeader(name)}</div>
                           {/* <pre>{JSON.stringify(value, null, 2)}</pre> */}
-                          <div className='flex flex-wrap w-2/3 gap-1 gap-y-3 text-2xl'>
+                          <div className="flex flex-wrap w-2/3 gap-1 gap-y-3 text-2xl">
                             {value.map((v: { name: string }, i: number) => {
                               const { icon, color, type } = getTypeByName(
-                                v.name,
+                                v.name
                               )
                               return (
                                 <Link
@@ -145,7 +143,7 @@ export default function PokemonInfo() {
                           </div>
                         </div>
                       )
-                    },
+                    }
                   )}
                 </div>
               </div>
