@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Ensure number input arrows are always visible */
+input[type="number"] {
+  -moz-appearance: textfield;
+  /* Fix for Firefox */
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1 !important;
+  /* Ensure visibility in Webkit browsers */
+  display: block !important;
+  /* Override default hiding */
+}
