@@ -1,12 +1,12 @@
 import classNames from 'classnames'
 import { BaseSyntheticEvent } from 'react'
-import { useTypeChecker } from '../pages/TypeChecker/context/TypeCheckerProvider'
 import { pokemonTypesIcons } from './TypeIcon'
+import { useTypeSelector } from './context'
 
 export default function TypeButtons() {
   const shadow = '1px 1px 2px rgba(0,0,0,.7)'
 
-  const { currentType, setCurrentType } = useTypeChecker()
+  const { currentType, setCurrentType } = useTypeSelector()
 
   function handleTypeClick(e: BaseSyntheticEvent) {
     e.stopPropagation()
@@ -20,7 +20,7 @@ export default function TypeButtons() {
   }
 
   return (
-    <div className='grid grid-cols-4 gap-2'>
+    <div className="grid grid-cols-4 gap-2">
       {pokemonTypesIcons.map((p, i) => (
         <button
           key={`${i}`}
@@ -29,7 +29,7 @@ export default function TypeButtons() {
             {
               'opacity-100': !currentType || p.type === currentType,
               'opacity-50': currentType && p.type !== currentType,
-            },
+            }
           )}
           style={{ backgroundColor: p.color, textShadow: shadow }}
           onClick={handleTypeClick}

@@ -1,4 +1,4 @@
-import { pokemonTypesIcons } from '../components/TypeIcon'
+import { pokemonTypesIcons } from '../components/TypeIconOld'
 
 export function getTypeInfo(type: string) {
   return pokemonTypesIcons.find(t => t.type === type)

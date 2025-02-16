@@ -1,4 +1,4 @@
-import { getTypeInfo } from '../data/types'
+import { getTypeInfo } from '../../data/types'
 import TypeIcon from './TypeIcon'
 
 interface ITypeButtonProps {
