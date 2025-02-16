@@ -6,12 +6,17 @@ const otherApps = [
     description: 'A simple size chart app',
     link: '/size-chart',
   },
+  {
+    title: 'Type Quiz',
+    description: 'A simple type quiz app',
+    link: '/type-quiz',
+  },
 ]
 
 export default function OtherAppsPage() {
   return (
     <div className="max-w-lg m-auto p-4">
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 gap-4">
         {otherApps.map(app => (
           <div
             key={app.title}
