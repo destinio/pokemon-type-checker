@@ -123,7 +123,7 @@ interface ITypeIconProps {
 export default function TypeIcon({ type }: ITypeIconProps) {
   const pokemonType = pokemonTypesIcons.find(t => t.type === type)
 
-  const { setCurrentType } = useTypeSelector()
+  const { setCurrentTypes } = useTypeSelector()
 
   if (!pokemonType) {
     return null
@@ -134,7 +134,7 @@ export default function TypeIcon({ type }: ITypeIconProps) {
       title={type}
       className="text-4xl cursor-pointer hover:scale-110"
       style={{ color: pokemonType.color }}
-      onClick={() => setCurrentType(type)}
+      onClick={() => setCurrentTypes([type])}
     >
       {pokemonType.icon}
     </div>

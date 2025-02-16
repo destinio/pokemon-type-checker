@@ -1,20 +1,14 @@
 import React, { useContext, useEffect } from 'react'
-import { useParams } from 'react-router'
-import { ITypeInfo, useTypeData } from '../../hooks/useTypeData'
+import { ITypeInfo, useTypesData } from '../../hooks/useTypesData'
 
 interface ITypeSelectorValues {
-  currentType: string | null
-  setCurrentType: (type: string) => void
-  typeData: ITypeInfo | undefined
+  currentTypes: string[] | null
+  setCurrentTypes: (types: string[]) => void
+  typesData: ITypeInfo[] | undefined
   isLoading: boolean
 }
 
-const TypeSelectorContext = React.createContext<ITypeSelectorValues>({
-  currentType: null,
-  setCurrentType: () => {},
-  typeData: null!,
-  isLoading: true,
-})
+const TypeSelectorContext = React.createContext<ITypeSelectorValues>(null!)
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useTypeSelector = () =>
@@ -25,26 +19,24 @@ interface ITypeSelectorProps {
 }
 
 export function TypeSelectorProvider({ children }: ITypeSelectorProps) {
-  const { id } = useParams()
-  const [currentType, setCurrentType] = React.useState<string>(null!)
-  const [typeData, setTypeData] = React.useState<ITypeInfo | undefined>(null!)
+  const [currentTypes, setCurrentTypes] = React.useState<string[]>(null!)
 
-  const { data, isFetching, isLoading } = useTypeData(currentType)
+  const [typesData, setTypesData] = React.useState<ITypeInfo[] | undefined>(
+    null!
+  )
+
+  const { data, isFetching, isLoading } = useTypesData(currentTypes)
 
   useEffect(() => {
-    if (id) {
-      setCurrentType(id)
+    if (data) {
+      setTypesData(data)
     }
-  }, [id])
-
-  useEffect(() => {
-    setTypeData(data)
   }, [data])
 
   const value = {
-    currentType,
-    setCurrentType,
-    typeData,
+    currentTypes: currentTypes,
+    setCurrentTypes,
+    typesData,
     isLoading: isFetching || isLoading,
   }
 

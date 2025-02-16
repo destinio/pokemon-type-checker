@@ -9,7 +9,7 @@ import PokemonInfo from './pages/Pokemon'
 import Home from './pages/Home'
 import OtherAppsPage from './pages/Other'
 import SizeChartPage from './pages/Other/SizeChartPage'
-import TypeQuizPage from './pages/TypeQuiz'
+import TypeQuizApp from './pages/TypeQuizApp'
 
 const queryClient = new QueryClient()
 
@@ -23,7 +23,7 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/other" element={<OtherAppsPage />} />
         <Route path="/size-chart" element={<SizeChartPage />} />
-        <Route path="/type-quiz" element={<TypeQuizPage />} />
+        <Route path="/type-quiz" element={<TypeQuizApp />} />
         <Route path="/pokemon/:id" element={<PokemonInfo />} />
       </Routes>
       {process.env.NODE_ENV === 'development' && (

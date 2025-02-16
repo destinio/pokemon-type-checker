@@ -6,17 +6,22 @@ import { useTypeSelector } from './context'
 export default function TypeButtons() {
   const shadow = '1px 1px 2px rgba(0,0,0,.7)'
 
-  const { currentType, setCurrentType } = useTypeSelector()
+  const { currentTypes, setCurrentTypes } = useTypeSelector()
+
+  if (currentTypes) {
+    return null
+  }
 
   function handleTypeClick(e: BaseSyntheticEvent) {
     e.stopPropagation()
 
-    if (currentType === e.target.name) {
-      setCurrentType(null!)
+    // Toggles the current type
+    if (currentTypes === e.target.name) {
+      setCurrentTypes(null!)
       return
     }
 
-    setCurrentType(e.target.name)
+    setCurrentTypes([e.target.name])
   }
 
   return (
@@ -27,8 +32,8 @@ export default function TypeButtons() {
           className={classNames(
             'p-2 rounded-sm border border-black overflow-hidden text-xl hover:opacity-100 hover:scale-105',
             {
-              'opacity-100': !currentType || p.type === currentType,
-              'opacity-50': currentType && p.type !== currentType,
+              'opacity-100': !currentTypes || p.type === currentTypes,
+              'opacity-50': currentTypes && p.type !== currentTypes,
             }
           )}
           style={{ backgroundColor: p.color, textShadow: shadow }}

@@ -6,6 +6,8 @@ import TypeIcon from './TypeIcon'
 export default function TypeInfo() {
   const { typeData: typeInfo, isLoading } = useTypeChecker()
 
+  console.log(typeInfo)
+
   if (!typeInfo) return null
 
   if (isLoading)
