@@ -11,8 +11,10 @@ export async function getAllPokemon() {
         ...p,
         image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`,
       }
-    })
+    }) as IPokemon[]
 
     return newData
   }
+
+  return []
 }
