@@ -7,6 +7,8 @@ import TypeChecker from './pages/TypeChecker'
 import Search from './pages/Search'
 import PokemonInfo from './pages/Pokemon'
 import Home from './pages/Home'
+import OtherAppsPage from './pages/Other'
+import SizeChartPage from './pages/Other/SizeChartPage'
 
 const queryClient = new QueryClient()
 
@@ -15,10 +17,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <NavBar />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/typecheck/:id?' element={<TypeChecker />} />
-        <Route path='/search' element={<Search />} />
-        <Route path='/pokemon/:id' element={<PokemonInfo />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/typecheck/:id?" element={<TypeChecker />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/other" element={<OtherAppsPage />} />
+        <Route path="/size-chart" element={<SizeChartPage />} />
+        <Route path="/pokemon/:id" element={<PokemonInfo />} />
       </Routes>
       {process.env.NODE_ENV === 'development' && (
         <ReactQueryDevtools initialIsOpen={false} />
