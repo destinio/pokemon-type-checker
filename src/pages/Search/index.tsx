@@ -1,7 +1,8 @@
-import { useQuery } from '@tanstack/react-query'
 import { BaseSyntheticEvent, useState } from 'react'
 import { MdCatchingPokemon } from 'react-icons/md'
 import { useNavigate } from 'react-router'
+import { usePokemon } from '../../hooks/usePokemon'
+import { IPokemon } from '../../types'
 
 //TODO: Move to utils
 /** Check if a string is an integer */
@@ -9,39 +10,10 @@ function isInt(value: string) {
   return !isNaN(Number(value)) && Number.isInteger(Number(value))
 }
 
-interface PokemonSimp {
-  name: string
-  url: string
-}
-
-interface PokemonSearch extends PokemonSimp {
-  id: number
-  image: string
-}
-
 export default function Search() {
   const nav = useNavigate()
 
-  const { data, isLoading, isFetching } = useQuery({
-    queryKey: ['pokemons'],
-    staleTime: 1000 * 60 * 60 * 24,
-    queryFn: async () => {
-      const response = await fetch(
-        'https://pokeapi.co/api/v2/pokemon?limit=1040' // TODO: Move to api function and create local data
-      )
-      const { results } = (await response.json()) as { results: PokemonSimp[] }
-
-      return results.map((p, i) => {
-        const id = i + 1
-
-        return {
-          ...p,
-          id,
-          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
-        }
-      })
-    },
-  })
+  const { data, isLoading, isFetching } = usePokemon()
 
   // const searchRef = useRef<HTMLInputElement>(null!)
   const searchRef = (element: HTMLInputElement | null) => {
@@ -50,7 +22,7 @@ export default function Search() {
     }
   }
 
-  const [filtered, setFiltered] = useState<PokemonSearch[]>(null!)
+  const [filtered, setFiltered] = useState<IPokemon[]>(null!)
 
   if (isLoading || isFetching) {
     return <div className="max-w-lg m-auto p-4">Loading...</div>
