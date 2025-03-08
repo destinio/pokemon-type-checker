@@ -1,46 +1,13 @@
-import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router'
-import { EvChainFull, renderEvChain } from '../../utils/renderEvChain'
-import { PokemonFull } from './pokemon'
+import { renderEvChain } from '../../utils/renderEvChain'
 import { getTypeByName } from '../../utils/pokemonTypes'
-import { ITypeInfo } from '../../hooks/useTypeData'
 import { convertInfoHeader } from '../../data/types'
+import { usePokemonById } from '../../hooks/usePokemon'
 
 export default function PokemonInfo() {
   const { id } = useParams()
 
-  const { data, isLoading, isFetching } = useQuery({
-    queryKey: ['pokemon', id],
-    staleTime: 1000 * 60 * 60 * 24,
-    queryFn: async () => {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      const done = (await response.json()) as PokemonFull
-
-      const speciesResponse = await fetch(done.species.url)
-      const species = await speciesResponse.json()
-
-      const evChainUrl = species.evolution_chain.url
-
-      const evChainResponse = await fetch(evChainUrl)
-      const evChain = (await evChainResponse.json()) as EvChainFull
-
-      const typesData = [] as ITypeInfo[]
-
-      for (const type of done.types) {
-        const typeResponse = await fetch(type.type.url)
-        const typeData = await typeResponse.json()
-        typesData.push(typeData)
-      }
-
-      const returnData = {
-        ...done,
-        evChain,
-        typesData,
-      }
-
-      return returnData
-    },
-  })
+  const { data, isLoading, isFetching } = usePokemonById(id)
 
   if (isLoading || isFetching) {
     return <div className="max-w-lg m-auto p-4">Loading...</div>
@@ -61,7 +28,6 @@ export default function PokemonInfo() {
         }}
         className="bg-right bg-[length:200px] bg-no-repeat h-44 border-b-2 border-b-slate-700"
       >
-        {/* <IoArrowBack className='text-3xl' /> <Link to='/search'>Back</Link> */}
         <h1 className="text-4xl font-bold mb-2">{data.name}</h1>
         <div className="mb-6">
           <p>Species:</p>
@@ -149,6 +115,12 @@ export default function PokemonInfo() {
               </div>
             )
           })}
+        </div>
+      </section>
+      <section>
+        <h2 className="text-2xl mb-4 font-extrabold">Links:</h2>
+        <div className="flex flex-col gap-4">
+          <a href={`https://pogo.gamepress.gg/pokemon/${data.id}`} target='_blank'>gamepress</a>
         </div>
       </section>
     </div>

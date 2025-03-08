@@ -1,4 +1,7 @@
+import { ITypeInfo } from '../hooks/useTypeData'
+import { PokemonFull } from '../pages/Pokemon/pokemon'
 import { IPokemon } from '../types'
+import { EvChainFull } from '../utils/renderEvChain'
 
 export async function getAllPokemon() {
   const response = await fetch('/data/pokemon.json')
@@ -17,4 +20,33 @@ export async function getAllPokemon() {
   }
 
   return []
+}
+
+export async function getPokemonById(id: string) {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+  const done = (await response.json()) as PokemonFull
+
+  const speciesResponse = await fetch(done.species.url)
+  const species = await speciesResponse.json()
+
+  const evChainUrl = species.evolution_chain.url
+
+  const evChainResponse = await fetch(evChainUrl)
+  const evChain = (await evChainResponse.json()) as EvChainFull
+
+  const typesData = [] as ITypeInfo[]
+
+  for (const type of done.types) {
+    const typeResponse = await fetch(type.type.url)
+    const typeData = await typeResponse.json()
+    typesData.push(typeData)
+  }
+
+  const returnData = {
+    ...done,
+    evChain,
+    typesData,
+  }
+
+  return returnData
 }

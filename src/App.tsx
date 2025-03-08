@@ -9,6 +9,7 @@ import PokemonInfo from './pages/Pokemon'
 import Home from './pages/Home'
 import OtherAppsPage from './pages/Other'
 import SizeChartPage from './pages/Other/SizeChartPage'
+import RanksPage from './pages/Ranks'
 
 const queryClient = new QueryClient()
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/typecheck/:id?" element={<TypeChecker />} />
         <Route path="/search" element={<Search />} />
         <Route path="/other" element={<OtherAppsPage />} />
+        <Route path="/ranks" element={<RanksPage />} />
         <Route path="/size-chart" element={<SizeChartPage />} />
         <Route path="/pokemon/:id" element={<PokemonInfo />} />
       </Routes>
