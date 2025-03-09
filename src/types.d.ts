@@ -6,3 +6,14 @@ export interface IPokemon {
   weight: number
   types: string[]
 }
+
+export interface IRank {
+  rank?: number
+  pokemon: string
+  fastMove: string
+  chargedMove: string
+  dps: string
+  tdo: string
+  er: string
+  cp: string
+}
