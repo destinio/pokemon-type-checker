@@ -25,7 +25,7 @@ export default function PokemonInfo() {
 
   const { species, chains } = renderEvChain(pokemon.evChain.chain)
 
-  const rankings = ranks.filter(p => p.pokemon.toLowerCase().includes(pokemon.name.toLowerCase()))
+  const rankings = ranks ? ranks.filter(p => p.pokemon.toLowerCase().includes(pokemon.name.toLowerCase())) : []
 
   return (
     <div className="max-w-lg m-auto p-4 pb-16 flex flex-col gap-8">
@@ -136,7 +136,7 @@ export default function PokemonInfo() {
           <h3 className="text-2xl mb-4 font-extrabold">Go Rankings</h3>
           <div className="flex flex-col gap-4">
             {rankings
-              .filter(p => p.rank <= 50)
+              .filter(p => p?.rank <= 50)
               .map((rank, i) => (
                 <div key={i} className="flex gap-2 justify-between">
                   <div className='flex gap-2'>

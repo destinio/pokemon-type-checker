@@ -8,7 +8,7 @@ export interface IPokemon {
 }
 
 export interface IRank {
-  rank?: number
+  rank: number
   pokemon: string
   fastMove: string
   chargedMove: string
