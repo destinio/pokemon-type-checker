@@ -1,5 +1,3 @@
-import { FaFastForward } from 'react-icons/fa'
-import { RiBattery2ChargeFill } from 'react-icons/ri'
 import { IRank } from '../types'
 import { useMoves } from '../hooks/useMoves'
 import { toTrainCase } from '../utils'
