@@ -8,6 +8,7 @@ import Section from '../../components/Section'
 import Moves from '../../components/Moves'
 import { FaFastForward } from 'react-icons/fa'
 import { RiBattery2ChargeFill } from 'react-icons/ri'
+import SiteLinks from '../../components/SiteLinks'
 
 export default function PokemonInfo() {
   const { id } = useParams()
@@ -170,15 +171,7 @@ export default function PokemonInfo() {
         ) : null}
         {/* links */}
         <div>
-          <h3 className="text-xl mb-4 font-extrabold">Links:</h3>
-          <div className="flex flex-col gap-4">
-            <a
-              href={`https://pogo.gamepress.gg/pokemon/${pokemon.id}`}
-              target="_blank"
-            >
-              gamepress
-            </a>
-          </div>
+          <SiteLinks pokemon={{ id: pokemon.id, name: pokemon.name }} />
         </div>
       </Section>
     </div>
