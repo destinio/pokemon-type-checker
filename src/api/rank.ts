@@ -1,7 +1,5 @@
-import { IRank } from "../types";
-
-const toCamelCase = (str: string) =>
-  str.toLowerCase().replace(/ ([a-z])/g, (_, char: string) => char.toUpperCase());
+import { IRank } from '../types'
+import { toCamelCase } from '../utils'
 
 export async function getRankings() {
   const response = await fetch('/data/ranks.json')
@@ -18,7 +16,6 @@ export async function getRankings() {
 
       return { rank: i + 1, ...newP }
     }) as any[]
-
 
     return newData as IRank[]
   }

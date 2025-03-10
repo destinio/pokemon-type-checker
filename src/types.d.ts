@@ -1,3 +1,6 @@
+import { TPokemonType } from './components/TypeIcon'
+import { ITypeInfo } from './hooks/useTypeData'
+
 export interface IPokemon {
   id: number
   name: string
@@ -16,4 +19,16 @@ export interface IRank {
   tdo: string
   er: string
   cp: string
+}
+
+export interface IMove {
+  name: string
+  id: number
+  typeName: string
+  pp: number
+  power: number
+}
+
+export interface IMoveWithTypes extends IMove {
+  type: TPokemonType
 }
