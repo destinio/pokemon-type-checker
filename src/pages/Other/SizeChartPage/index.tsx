@@ -90,7 +90,7 @@ export default function SizeChartPage() {
   }
 
   return (
-    <MainLayout>
+    <div>
       <Bar data={chartData} options={options} className="mb-8" />
       <div className="flex gap-8 justify-around">
         <div>
@@ -106,6 +106,6 @@ export default function SizeChartPage() {
           />
         </div>
       </div>
-    </MainLayout>
+    </div>
   )
 }

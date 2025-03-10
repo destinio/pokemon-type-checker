@@ -29,8 +29,8 @@ const { icon, color } = getTypeByName('electric')
 
 export default function Home() {
   return (
-    <div className="max-w-lg m-auto px-4">
-      <div className="m-auto px-8 pb-8 text-center flex flex-col items-center">
+    <div>
+      <div className="m-auto py-8 text-center flex flex-col items-center">
         <img
           src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png"
           alt=""

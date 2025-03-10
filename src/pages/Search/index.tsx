@@ -57,52 +57,50 @@ export default function Search() {
   }
 
   return (
-    <div className="max-w-lg m-auto p-4">
-      <div>
-        <input
-          type="text"
-          ref={searchRef}
-          onChange={handleSearchChange}
-          className="w-full p-2 border border-gray-300 rounded bg-transparent mb-8"
-          placeholder={data ? `pokemon name or id` : 'Loading...'}
-          disabled={!data}
-        />
-        {filtered ? (
-          <div
-            className="flex flex-col gap-2 overflow-auto"
-            style={{ height: 500 }}
-          >
-            {filtered.map(p => (
-              <button
-                key={p.id}
-                className="flex justify-between items-center cursor-pointer hover:border-orange-400 focus:outline-orange-400 focus:outline-offset-1 pr-4 border-2 rounded-sm"
-                onClick={() => handlePokemonClick(p.id)}
-              >
-                <div className="flex items-center ">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    style={{ display: 'none' }}
-                    onLoad={e => {
-                      const target = e.currentTarget as HTMLImageElement
+    <div className="py-8">
+      <input
+        type="text"
+        ref={searchRef}
+        onChange={handleSearchChange}
+        className="w-full p-2 border border-gray-300 rounded bg-transparent mb-8"
+        placeholder={data ? `pokemon name or id` : 'Loading...'}
+        disabled={!data}
+      />
+      {filtered ? (
+        <div
+          className="flex flex-col gap-2 overflow-auto"
+          style={{ height: 500 }}
+        >
+          {filtered.map(p => (
+            <button
+              key={p.id}
+              className="flex justify-between items-center cursor-pointer hover:border-orange-400 focus:outline-orange-400 focus:outline-offset-1 pr-4 border-2 rounded-sm"
+              onClick={() => handlePokemonClick(p.id)}
+            >
+              <div className="flex items-center ">
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  style={{ display: 'none' }}
+                  onLoad={e => {
+                    const target = e.currentTarget as HTMLImageElement
 
-                      target.style.display = 'block'
-                      target.nextSibling?.remove()
-                    }}
-                  />
-                  <div className="loader h-28 w-28 grid place-content-center">
-                    <MdCatchingPokemon className="text-4xl text-slate-400 animate-spin" />
-                  </div>
-                  <h3 className="text-3xl">{p.name}</h3>
+                    target.style.display = 'block'
+                    target.nextSibling?.remove()
+                  }}
+                />
+                <div className="loader h-28 w-28 grid place-content-center">
+                  <MdCatchingPokemon className="text-4xl text-slate-400 animate-spin" />
                 </div>
-                <div className="text-slate-400 font-extrabold text-3xl">
-                  # {p.id}
-                </div>
-              </button>
-            ))}
-          </div>
-        ) : null}
-      </div>
+                <h3 className="text-3xl">{p.name}</h3>
+              </div>
+              <div className="text-slate-400 font-extrabold text-3xl">
+                # {p.id}
+              </div>
+            </button>
+          ))}
+        </div>
+      ) : null}
     </div>
   )
 }

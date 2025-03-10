@@ -10,26 +10,29 @@ import Home from './pages/Home'
 import OtherAppsPage from './pages/Other'
 import SizeChartPage from './pages/Other/SizeChartPage'
 import RanksPage from './pages/Ranks'
+import MainLayout from './layouts/MainLayout'
 
 const queryClient = new QueryClient()
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/typecheck/:id?" element={<TypeChecker />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/other" element={<OtherAppsPage />} />
-        <Route path="/ranks" element={<RanksPage />} />
-        <Route path="/size-chart" element={<SizeChartPage />} />
-        <Route path="/pokemon/:id" element={<PokemonInfo />} />
-      </Routes>
-      {process.env.NODE_ENV === 'development' && (
-        <ReactQueryDevtools initialIsOpen={false} />
-      )}
-    </QueryClientProvider>
+    <MainLayout>
+      <QueryClientProvider client={queryClient}>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/typecheck/:id?" element={<TypeChecker />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/other" element={<OtherAppsPage />} />
+          <Route path="/ranks" element={<RanksPage />} />
+          <Route path="/size-chart" element={<SizeChartPage />} />
+          <Route path="/pokemon/:id" element={<PokemonInfo />} />
+        </Routes>
+        {process.env.NODE_ENV === 'development' && (
+          <ReactQueryDevtools initialIsOpen={false} />
+        )}
+      </QueryClientProvider>
+    </MainLayout>
   )
 }
 

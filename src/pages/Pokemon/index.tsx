@@ -33,7 +33,7 @@ export default function PokemonInfo() {
     : []
 
   return (
-    <div className="max-w-lg m-auto p-4 pb-32 flex flex-col gap-8">
+    <div className="pb-16 pt-8 flex flex-col gap-8">
       <header
         style={{
           backgroundImage: `url('${pokemon.sprites.other.home.front_default}')`,
