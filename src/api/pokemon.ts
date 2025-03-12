@@ -13,6 +13,7 @@ export async function getAllPokemon() {
       return {
         ...p,
         image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`,
+        shiny: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${p.id}.png`,
       }
     }) as IPokemon[]
 
