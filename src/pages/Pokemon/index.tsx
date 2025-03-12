@@ -49,8 +49,6 @@ export default function PokemonInfo() {
       )
     : null
 
-  console.log(pokemon)
-
   return (
     <div className="pb-16 pt-8 flex flex-col gap-8">
       <header
