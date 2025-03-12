@@ -56,9 +56,10 @@ export default function PokemonInfo() {
       <header
         style={{
           backgroundImage: `url('${shiny ? pokemon.sprites.other.home.front_shiny : pokemon.sprites.other.home.front_default}')`,
+          backgroundPosition: 'bottom 2rem right 1rem',
           color: getTypeByName(pokemon.typesData[0].name).color,
         }}
-        className="bg-right-bottom bg-[length:200px] bg-no-repeat pb-2 border-b-2 border-b-slate-700"
+        className="bg-[length:200px] bg-no-repeat pb-2 border-b-2 border-b-slate-700"
       >
         <div className="w-100 flex justify-between items-center align-middle gap-2 mb-6">
           <div
@@ -108,7 +109,7 @@ export default function PokemonInfo() {
           ) : null}
         </div>
         <div className="flex justify-end pt-8">
-          <button onClick={() => setShiny(p => !p)}>
+          <button className="text-2xl" onClick={() => setShiny(p => !p)}>
             {shiny ? <IoSparkles /> : <IoSparklesOutline />}
           </button>
         </div>
