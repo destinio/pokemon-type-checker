@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
 import { renderEvChain } from '../../utils/renderEvChain'
 import { getTypeByName } from '../../utils/pokemonTypes'
 import { convertInfoHeader } from '../../data/types'
@@ -9,15 +9,17 @@ import Moves from '../../components/Moves'
 import { FaFastForward } from 'react-icons/fa'
 import { RiBattery2ChargeFill } from 'react-icons/ri'
 import SiteLinks from '../../components/SiteLinks'
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6'
 
 export default function PokemonInfo() {
   const { id } = useParams()
+  const nav = useNavigate()
 
   const { data: pokemon, isLoading, isFetching } = usePokemonById(id)
   const { data: ranks } = useRanks()
 
   if (isLoading || isFetching) {
-    return <div className="max-w-lg m-auto p-4">Loading...</div>
+    return null
   }
 
   if (!pokemon) {
@@ -32,6 +34,16 @@ export default function PokemonInfo() {
       )
     : []
 
+  function handleChangePokemon(id: number) {
+    nav(`/pokemon/${id}`)
+  }
+
+  const ranksByName = ranks
+    ? ranks.filter(p =>
+        p.pokemon.toLowerCase().includes(pokemon.name.toLowerCase())
+      )
+    : null
+
   return (
     <div className="pb-16 pt-8 flex flex-col gap-8">
       <header
@@ -39,9 +51,28 @@ export default function PokemonInfo() {
           backgroundImage: `url('${pokemon.sprites.other.home.front_default}')`,
           color: getTypeByName(pokemon.typesData[0].name).color,
         }}
-        className="bg-right bg-[length:200px] bg-no-repeat pb-6 border-b-2 border-b-slate-700"
+        className="bg-right-bottom bg-[length:200px] bg-no-repeat pb-6 border-b-2 border-b-slate-700"
       >
-        <h1 className="text-4xl font-bold mb-2">{pokemon.name}</h1>
+        <div className="w-100 flex justify-between items-center align-middle gap-2 mb-6">
+          <div
+            onClick={() => handleChangePokemon(pokemon.id - 1)}
+            className="flex gap-1 items-center text-white cursor-pointer"
+          >
+            <FaAngleLeft className="text-2xl" />
+            <span>{pokemon.id - 1}</span>
+          </div>
+          {/* Name */}
+          <h1 className="text-4xl font-bold mb-2">
+            {pokemon.name.split('-')[0]}
+          </h1>
+          <div
+            onClick={() => handleChangePokemon(pokemon.id + 1)}
+            className="flex gap-1 items-center text-white cursor-pointer"
+          >
+            <span>{pokemon.id + 1}</span>
+            <FaAngleRight className="text-2xl" />
+          </div>
+        </div>
         <div className="mb-6">
           <h3 className="text-xl font-bold">
             <p>Species:</p> <p>{species}</p>
@@ -62,15 +93,11 @@ export default function PokemonInfo() {
           })}
         </ul>
         <div>
-          <h3 className="text-xl font-bold">Go Rank:</h3>
-          {ranks ? (
-            <pre>
-              {
-                ranks.filter(p =>
-                  p.pokemon.toLowerCase().includes(pokemon.name.toLowerCase())
-                )[0].rank
-              }
-            </pre>
+          {ranksByName && ranksByName?.length > 0 ? (
+            <div>
+              <h3 className="text-xl font-bold">Go Rank:</h3>
+              <pre>{ranksByName[0].rank}</pre>
+            </div>
           ) : null}
         </div>
       </header>

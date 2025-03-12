@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { BaseSyntheticEvent, ReactNode } from 'react'
 
 interface MainLayoutProps {
   children: ReactNode
