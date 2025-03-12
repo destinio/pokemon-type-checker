@@ -1,4 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router'
+import { IoSparkles, IoSparklesOutline } from 'react-icons/io5'
+
 import { renderEvChain } from '../../utils/renderEvChain'
 import { getTypeByName } from '../../utils/pokemonTypes'
 import { convertInfoHeader } from '../../data/types'
@@ -10,10 +12,13 @@ import { FaFastForward } from 'react-icons/fa'
 import { RiBattery2ChargeFill } from 'react-icons/ri'
 import SiteLinks from '../../components/SiteLinks'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6'
+import { useState } from 'react'
 
 export default function PokemonInfo() {
   const { id } = useParams()
   const nav = useNavigate()
+
+  const [shiny, setShiny] = useState(false)
 
   const { data: pokemon, isLoading, isFetching } = usePokemonById(id)
   const { data: ranks } = useRanks()
@@ -44,14 +49,16 @@ export default function PokemonInfo() {
       )
     : null
 
+  console.log(pokemon)
+
   return (
     <div className="pb-16 pt-8 flex flex-col gap-8">
       <header
         style={{
-          backgroundImage: `url('${pokemon.sprites.other.home.front_default}')`,
+          backgroundImage: `url('${shiny ? pokemon.sprites.other.home.front_shiny : pokemon.sprites.other.home.front_default}')`,
           color: getTypeByName(pokemon.typesData[0].name).color,
         }}
-        className="bg-right-bottom bg-[length:200px] bg-no-repeat pb-6 border-b-2 border-b-slate-700"
+        className="bg-right-bottom bg-[length:200px] bg-no-repeat pb-2 border-b-2 border-b-slate-700"
       >
         <div className="w-100 flex justify-between items-center align-middle gap-2 mb-6">
           <div
@@ -99,6 +106,11 @@ export default function PokemonInfo() {
               <pre>{ranksByName[0].rank}</pre>
             </div>
           ) : null}
+        </div>
+        <div className="flex justify-end pt-8">
+          <button onClick={() => setShiny(p => !p)}>
+            {shiny ? <IoSparkles /> : <IoSparklesOutline />}
+          </button>
         </div>
       </header>
 
