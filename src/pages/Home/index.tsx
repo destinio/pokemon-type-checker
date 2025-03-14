@@ -3,6 +3,7 @@ import { FaCodeCompare } from 'react-icons/fa6'
 import { Link } from 'react-router'
 import { getTypeByName } from '../../utils/pokemonTypes'
 import { IoAppsSharp } from 'react-icons/io5'
+import { LuSwords } from 'react-icons/lu'
 
 const apps = [
   {
@@ -16,6 +17,12 @@ const apps = [
     icon: <FaSearch />,
     description: 'Search for a Pokemon by name or ID',
     route: '/search',
+  },
+  {
+    title: 'Current Raids',
+    icon: <LuSwords />,
+    description: 'Current Pokemon Go raids',
+    route: '/current-raids',
   },
   {
     title: 'Other Apps',

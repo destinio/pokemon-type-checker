@@ -3,19 +3,13 @@ import { MdCatchingPokemon } from 'react-icons/md'
 import { useNavigate } from 'react-router'
 import { usePokemon } from '../../hooks/usePokemon'
 import { IPokemon } from '../../types'
-
-//TODO: Move to utils
-/** Check if a string is an integer */
-function isInt(value: string) {
-  return !isNaN(Number(value)) && Number.isInteger(Number(value))
-}
+import { isInt } from '../../utils'
 
 export default function Search() {
   const nav = useNavigate()
 
   const { data, isLoading, isFetching } = usePokemon()
 
-  // const searchRef = useRef<HTMLInputElement>(null!)
   const searchRef = (element: HTMLInputElement | null) => {
     if (element) {
       element.focus()

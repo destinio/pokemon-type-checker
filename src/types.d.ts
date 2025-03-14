@@ -32,3 +32,15 @@ export interface IMove {
 export interface IMoveWithTypes extends IMove {
   type: TPokemonType
 }
+
+export interface ICurrentRaid {
+  tier: string
+  bosses: IRaidBoss[]
+}
+
+export interface IRaidBoss {
+  name: string
+  mainCP: string
+  boostedCP: string
+  weather: string[]
+}

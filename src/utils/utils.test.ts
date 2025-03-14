@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { toCamelCase, toTrainCase } from '.'
+import { isInt, toCamelCase, toTrainCase } from '.'
 
 const tests = [
   {
@@ -28,5 +28,22 @@ describe('utils', () => {
       expect(toTrainCase('job shmoe')).toBe('job-shmoe')
     })
   })
-})
 
+  describe('isInt', () => {
+    it('should return true for string integers', () => {
+      expect(isInt('1')).toBe(true)
+      expect(isInt('0')).toBe(true)
+      expect(isInt('-1')).toBe(true)
+    })
+
+    it('should return true for number integers', () => {
+      expect(isInt(1)).toBe(true)
+      expect(isInt(0)).toBe(true)
+      expect(isInt(-1)).toBe(true)
+    })
+
+    it('should return false for non-integers', () => {
+      expect(isInt('job')).toBe(false)
+    })
+  })
+})

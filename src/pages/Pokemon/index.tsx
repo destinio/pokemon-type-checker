@@ -53,6 +53,7 @@ export default function PokemonInfo() {
     <div className="pb-16 pt-8 flex flex-col gap-8">
       <header
         style={{
+          // TODO: pre load shiny image
           backgroundImage: `url('${shiny ? pokemon.sprites.other.home.front_shiny : pokemon.sprites.other.home.front_default}')`,
           backgroundPosition: 'bottom 2rem right 1rem',
           color: getTypeByName(pokemon.typesData[0].name).color,
@@ -181,7 +182,7 @@ export default function PokemonInfo() {
       </Section>
       <Section title="Other Info">
         {/* rankings */}
-        {rankings.filter(p => p.rank <= 50).length > 0 ? (
+        {rankings.filter(p => p.rank <= 500).length > 0 ? (
           <div>
             <h3 className="text-xl mb-4 font-extrabold flex items-center justify-between">
               <span>Go Rankings</span>
@@ -192,7 +193,7 @@ export default function PokemonInfo() {
             </h3>
             <div className="flex flex-col gap-4">
               {rankings
-                .filter(p => p?.rank <= 50)
+                .filter(p => p?.rank <= 1000) // first rank moves are key
                 .map((rank, i) => (
                   <div key={i} className="flex gap-2 justify-between">
                     <div className="flex gap-2">

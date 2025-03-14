@@ -6,3 +6,7 @@ export const toCamelCase = (str: string) =>
 export const toTrainCase = (str: string) =>
   // replace spaces with hyphens and lowercase everything
   str.toLowerCase().replace(/ /g, '-').toLowerCase()
+
+export function isInt(value: string | number): boolean {
+  return !isNaN(Number(value)) && Number.isInteger(Number(value))
+}

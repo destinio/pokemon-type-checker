@@ -11,6 +11,7 @@ import OtherAppsPage from './pages/Other'
 import SizeChartPage from './pages/Other/SizeChartPage'
 import RanksPage from './pages/Ranks'
 import MainLayout from './layouts/MainLayout'
+import Current from './pages/Current'
 
 const queryClient = new QueryClient()
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/other" element={<OtherAppsPage />} />
           <Route path="/ranks" element={<RanksPage />} />
           <Route path="/size-chart" element={<SizeChartPage />} />
+          <Route path="/current-raids" element={<Current />} />
           <Route path="/pokemon/:id" element={<PokemonInfo />} />
         </Routes>
         {process.env.NODE_ENV === 'development' && (
