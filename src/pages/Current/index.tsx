@@ -10,8 +10,6 @@ export default function Current() {
     return <div className="max-w-lg m-auto p-4">Loading...</div>
   }
 
-  console.log(currentRaids)
-
   const currentRaidsWithBosses = currentRaids.map(raid => ({
     ...raid,
     bosses: raid.bosses.map(boss => {
@@ -25,8 +23,6 @@ export default function Current() {
       }
     }),
   }))
-
-  console.log('Current Raids:', currentRaidsWithBosses)
 
   return (
     <div>

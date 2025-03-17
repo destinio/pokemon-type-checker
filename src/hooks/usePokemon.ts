@@ -1,6 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { IPokemon } from '../types'
 import { getAllPokemon, getPokemonById } from '../api/pokemon'
+import { useEffect } from 'react'
 
 export function usePokemon() {
   return useQuery<IPokemon[]>({
@@ -10,18 +11,34 @@ export function usePokemon() {
   })
 }
 
-export function usePokemonById(id: string | undefined) {
-  if (!id) {
-    return {
-      data: null,
-      isLoading: false,
-      isFetching: false,
-    }
-  }
+export function usePokemonById(id?: string) {
+  const queryClient = useQueryClient()
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ['pokemon', id],
     staleTime: 1000 * 60 * 60 * 24,
-    queryFn: async () => getPokemonById(id),
+    queryFn: async () => getPokemonById(id!),
+    enabled: !!id,
   })
+
+  useEffect(() => {
+    if (!id) return
+
+    const nextId = parseInt(id) + 1
+    const prevId = parseInt(id) - 1
+
+    queryClient.prefetchQuery({
+      queryKey: ['pokemon', nextId.toString()],
+      queryFn: () => getPokemonById(nextId.toString()),
+    })
+
+    if (prevId > 0) {
+      queryClient.prefetchQuery({
+        queryKey: ['pokemon', prevId.toString()],
+        queryFn: () => getPokemonById(prevId.toString()),
+      })
+    }
+  }, [id, queryClient])
+
+  return query
 }
