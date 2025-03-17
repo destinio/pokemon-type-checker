@@ -1,17 +1,18 @@
 import { Link, useNavigate, useParams } from 'react-router'
 import { IoSparkles, IoSparklesOutline } from 'react-icons/io5'
 
-import { renderEvChain } from '../../utils/renderEvChain'
-import { getTypeByName } from '../../utils/pokemonTypes'
-import { convertInfoHeader } from '../../data/types'
-import { usePokemonById } from '../../hooks/usePokemon'
-import { useRanks } from '../../hooks/useRanks'
-import Section from '../../components/Section'
-import Moves from '../../components/Moves'
+import Loader from '@/components/Loader'
+import Moves from '@/components/Moves'
+import Section from '@/components/Section'
+import SiteLinks from '@/components/SiteLinks'
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6'
 import { FaFastForward } from 'react-icons/fa'
 import { RiBattery2ChargeFill } from 'react-icons/ri'
-import SiteLinks from '../../components/SiteLinks'
-import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6'
+import { convertInfoHeader } from '@/data/types'
+import { getTypeByName } from '@/utils/pokemonTypes'
+import { renderEvChain } from '@/utils/renderEvChain'
+import { usePokemonById } from '@/hooks/usePokemon'
+import { useRanks } from '@/hooks/useRanks'
 import { useState } from 'react'
 
 export default function PokemonInfo() {
@@ -24,7 +25,7 @@ export default function PokemonInfo() {
   const { data: ranks } = useRanks()
 
   if (isLoading || isFetching) {
-    return null
+    return <Loader />
   }
 
   if (!pokemon) {
