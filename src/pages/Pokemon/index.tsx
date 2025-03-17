@@ -137,7 +137,7 @@ export default function PokemonInfo() {
         </div>
       </section>
 
-      <Section title="Type Detials">
+      <Section title="Type Details">
         <div className="flex flex-col gap-4">
           {pokemon.typesData.map((type, i) => {
             const { type: name, color, icon } = getTypeByName(type.name)
