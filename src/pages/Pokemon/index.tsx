@@ -36,19 +36,15 @@ export default function PokemonInfo() {
 
   const rankings = ranks
     ? ranks.filter(p =>
-        p.pokemon.toLowerCase().includes(pokemon.name.toLowerCase())
+        p.pokemon
+          .toLowerCase()
+          .includes(pokemon.name.toLowerCase().replace(/-/g, ' '))
       )
     : []
 
   function handleChangePokemon(id: number) {
     nav(`/pokemon/${id}`)
   }
-
-  const ranksByName = ranks
-    ? ranks.filter(p =>
-        p.pokemon.toLowerCase().includes(pokemon.name.toLowerCase())
-      )
-    : null
 
   return (
     <div className="pb-16 pt-8 flex flex-col gap-8">
@@ -71,7 +67,9 @@ export default function PokemonInfo() {
           </div>
           {/* Name */}
           <h1 className="text-4xl font-bold mb-2">
-            {pokemon.name.split('-')[0]}
+            {pokemon.name
+              .replace(/\-/g, ' ')
+              .replace(/\b\w/g, char => char.toUpperCase())}
           </h1>
           <div
             onClick={() => handleChangePokemon(pokemon.id + 1)}
@@ -101,10 +99,10 @@ export default function PokemonInfo() {
           })}
         </ul>
         <div>
-          {ranksByName && ranksByName?.length > 0 ? (
+          {rankings && rankings?.length > 0 ? (
             <div>
               <h3 className="text-xl font-bold">Go Rank:</h3>
-              <pre>{ranksByName[0].rank}</pre>
+              <pre>{rankings[0].rank}</pre>
             </div>
           ) : null}
         </div>
@@ -183,7 +181,7 @@ export default function PokemonInfo() {
       </Section>
       <Section title="Other Info">
         {/* rankings */}
-        {rankings.filter(p => p.rank <= 500).length > 0 ? (
+        {rankings.length > 0 ? (
           <div>
             <h3 className="text-xl mb-4 font-extrabold flex items-center justify-between">
               <span>Go Rankings</span>
@@ -194,7 +192,6 @@ export default function PokemonInfo() {
             </h3>
             <div className="flex flex-col gap-4">
               {rankings
-                .filter(p => p?.rank <= 1000) // first rank moves are key
                 .map((rank, i) => (
                   <div key={i} className="flex gap-2 justify-between">
                     <div className="flex gap-2">
@@ -205,7 +202,7 @@ export default function PokemonInfo() {
                     {rankings ? <Moves rank={rank} /> : null}
                   </div>
                 ))
-                .slice(0, 5)}
+                .slice(0, 3)}
             </div>
           </div>
         ) : null}

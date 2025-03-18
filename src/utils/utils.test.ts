@@ -27,6 +27,10 @@ describe('utils', () => {
     it('should convert a string to train case', () => {
       expect(toTrainCase('job shmoe')).toBe('job-shmoe')
     })
+
+    it('should convert single quote to nothing', () => {
+      expect(toTrainCase("job's")).toBe('jobs')
+    })
   })
 
   describe('isInt', () => {
