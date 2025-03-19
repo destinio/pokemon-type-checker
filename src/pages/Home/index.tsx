@@ -1,9 +1,9 @@
 import { FaSearch } from 'react-icons/fa'
 import { FaCodeCompare } from 'react-icons/fa6'
 import { Link } from 'react-router'
-import { getTypeByName } from '../../utils/pokemonTypes'
-import { IoAppsSharp } from 'react-icons/io5'
 import { LuSwords } from 'react-icons/lu'
+import { IoAppsSharp } from 'react-icons/io5'
+import { getTypeByName } from '@/utils/pokemonUtils'
 
 const apps = [
   {
