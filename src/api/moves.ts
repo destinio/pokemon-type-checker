@@ -1,6 +1,6 @@
-import { IMove, IMoveWithTypes } from '../types'
-import { toTrainCase } from '../utils'
-import { getTypeByName } from '../utils/pokemonTypes'
+import { getTypeByName } from '@/utils/pokemonUtils'
+import { IMove, IMoveWithTypes } from '@/types'
+import { toTrainCase } from '@/utils'
 
 export async function getMoves({
   fast,
