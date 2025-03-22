@@ -9,11 +9,11 @@ import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6'
 import { FaFastForward } from 'react-icons/fa'
 import { RiBattery2ChargeFill } from 'react-icons/ri'
 import { convertInfoHeader } from '@/data/types'
-import { getTypeByName } from '@/utils/pokemonTypes'
 import { renderEvChain } from '@/utils/renderEvChain'
 import { usePokemonById } from '@/hooks/usePokemon'
 import { useRanks } from '@/hooks/useRanks'
 import { useState } from 'react'
+import { getTypeByName } from '@/utils/pokemonUtils'
 
 export default function PokemonInfo() {
   const { id } = useParams()
