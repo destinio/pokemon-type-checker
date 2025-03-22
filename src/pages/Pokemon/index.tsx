@@ -114,7 +114,7 @@ export default function PokemonInfo() {
       </header>
 
       <section>
-        <h3 className="text-2xl mb-4 font-extrabold">Evelution Chain(s)</h3>
+        <h3 className="text-2xl mb-4 font-extrabold">Evolution Chain(s)</h3>
         <div>
           {chains.map((chain, i) => (
             <div key={i} className="flex gap-2">
