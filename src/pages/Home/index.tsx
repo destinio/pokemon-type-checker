@@ -1,9 +1,9 @@
 import { FaSearch } from 'react-icons/fa'
 import { FaCodeCompare } from 'react-icons/fa6'
 import { Link } from 'react-router'
-import { LuSwords } from 'react-icons/lu'
 import { IoAppsSharp } from 'react-icons/io5'
 import { getTypeByName } from '@/utils/pokemonUtils'
+// import { LuSwords } from 'react-icons/lu'
 
 const apps = [
   {
@@ -18,12 +18,12 @@ const apps = [
     description: 'Search for a Pokemon by name or ID',
     route: '/search',
   },
-  {
-    title: 'Current Raids',
-    icon: <LuSwords />,
-    description: 'Current Pokemon Go raids',
-    route: '/current-raids',
-  },
+  // {
+  //   title: 'Current Raids',
+  //   icon: <LuSwords />,
+  //   description: 'Current Pokemon Go raids',
+  //   route: '/current-raids',
+  // },
   {
     title: 'Other Apps',
     icon: <IoAppsSharp />,
