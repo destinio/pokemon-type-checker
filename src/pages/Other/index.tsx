@@ -6,11 +6,11 @@ const otherApps = [
     description: 'A simple size chart app',
     link: '/size-chart',
   },
-  {
-    title: 'PoGo Raids',
-    description: 'Current raids in Pokémon Go',
-    link: '/current-raids',
-  },
+  // {
+  //   title: 'PoGo Raids',
+  //   description: 'Current raids in Pokémon Go',
+  //   link: '/current-raids',
+  // },
 ]
 
 export default function OtherAppsPage() {
