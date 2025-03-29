@@ -2,7 +2,7 @@ import { IRank } from '../types'
 import { toCamelCase } from '../utils'
 
 export async function getRankings() {
-  const response = await fetch('/data/ranks.json')
+  const response = await fetch('/data/ranksV2.json')
 
   if (response.ok) {
     const data = (await response.json()) as any[]

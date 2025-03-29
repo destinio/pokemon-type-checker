@@ -4,8 +4,8 @@ import { toTrainCase } from '../utils'
 
 export default function Moves({ rank }: { rank: IRank }) {
   const { data: moves } = useMoves({
-    fast: rank.fastMove,
-    charged: rank.chargedMove,
+    fast: rank.fast,
+    charged: rank.charged,
   })
 
   if (!moves) {
@@ -21,17 +21,17 @@ export default function Moves({ rank }: { rank: IRank }) {
       <div className="flex gap-2">
         <p className="flex gap-2 items-center">
           {/* <FaFastForward className="inline-block " />{' '} */}
-          <span style={{ color: getMove(rank.fastMove)?.type.color }}>
-            {getMove(rank.fastMove)?.type.icon}
+          <span style={{ color: getMove(rank.fast)?.type.color }}>
+            {getMove(rank.fast)?.type.icon}
           </span>
-          <span>{rank.fastMove}</span>
+          <span>{rank.fast}</span>
         </p>
         <p className="flex gap-2 items-center">
           {/* <RiBattery2ChargeFill className="inline-block" />{' '} */}
-          <span style={{ color: getMove(rank.chargedMove)?.type.color }}>
-            {getMove(rank.chargedMove)?.type.icon}
+          <span style={{ color: getMove(rank.charged)?.type.color }}>
+            {getMove(rank.charged)?.type.icon}
           </span>
-          <span>{rank.chargedMove}</span>
+          <span>{rank.charged}</span>
         </p>
       </div>
     </div>
