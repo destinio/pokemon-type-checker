@@ -1,9 +1,29 @@
 import { FaGithub, FaSearch } from 'react-icons/fa'
 import { IoAppsSharp } from 'react-icons/io5'
 import { FaCodeCompare } from 'react-icons/fa6'
-import { Link } from 'react-router'
+import { Link, useLocation, useNavigate } from 'react-router'
+import { useEffect } from 'react'
 
 export default function NavBar() {
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (pathname.includes('search')) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === '/' || event.key === 'K') {
+        navigate('/search')
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
   return (
     <div className="py-4 flex justify-between items-center">
       <Link to="/">

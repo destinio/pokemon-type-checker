@@ -1,2 +1,2 @@
 ## Links to add
-- https://db.pokemongohub.net/
+https://pogo.gamepress.gg/comprehensive-dps-spreadsheet

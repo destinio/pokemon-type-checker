@@ -28,4 +28,4 @@ const json = lines.map(line => {
   )
 })
 
-console.log(JSON.stringify(json, null, 2))
+console.log(JSON.stringify(json))

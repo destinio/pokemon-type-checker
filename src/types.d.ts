@@ -13,8 +13,8 @@ export interface IPokemon {
 export interface IRank {
   rank: number
   pokemon: string
-  fastMove: string
-  chargedMove: string
+  fast: string
+  charged: string
   dps: string
   tdo: string
   er: string
