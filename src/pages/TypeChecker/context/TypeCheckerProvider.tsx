@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ITypeInfo, useTypeData } from '../../../hooks/useTypeData'
 import { useParams } from 'react-router'
 
@@ -26,8 +26,8 @@ interface ITypeCheckerProps {
 
 export function TypeCheckerProvider({ children }: ITypeCheckerProps) {
   const { id } = useParams()
-  const [currentType, setCurrentType] = React.useState<string>(null!)
-  const [typeData, setTypeData] = React.useState<ITypeInfo | undefined>(null!)
+  const [currentType, setCurrentType] = useState<string>(null!)
+  const [typeData, setTypeData] = useState<ITypeInfo | undefined>(null!)
 
   const { data, isFetching, isLoading } = useTypeData(currentType)
 
