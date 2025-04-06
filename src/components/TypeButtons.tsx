@@ -20,16 +20,16 @@ export default function TypeButtons() {
   }
 
   return (
-    <div className='grid grid-cols-4 gap-2'>
+    <div className="grid grid-cols-4 gap-2">
       {pokemonTypesIcons.map((p, i) => (
         <button
-          key={`${i}`}
+          key={`${p.type}-${i}`}
           className={classNames(
             'p-2 rounded-sm border border-black overflow-hidden text-xl hover:opacity-100 hover:scale-105',
             {
               'opacity-100': !currentType || p.type === currentType,
               'opacity-50': currentType && p.type !== currentType,
-            },
+            }
           )}
           style={{ backgroundColor: p.color, textShadow: shadow }}
           onClick={handleTypeClick}
