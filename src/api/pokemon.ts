@@ -1,3 +1,4 @@
+import { canMega } from '@/utils/canMega'
 import { ITypeInfo } from '../hooks/useTypeData'
 import { PokemonFull } from '../pages/Pokemon/pokemon'
 import { IPokemon } from '../types'
@@ -25,9 +26,9 @@ export async function getAllPokemon() {
 
 export async function getPokemonById(id: string) {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-  const done = (await response.json()) as PokemonFull
+  const pokemon = (await response.json()) as PokemonFull
 
-  const speciesResponse = await fetch(done.species.url)
+  const speciesResponse = await fetch(pokemon.species.url)
   const species = await speciesResponse.json()
 
   const evChainUrl = species.evolution_chain.url
@@ -37,16 +38,17 @@ export async function getPokemonById(id: string) {
 
   const typesData = [] as ITypeInfo[]
 
-  for (const type of done.types) {
+  for (const type of pokemon.types) {
     const typeResponse = await fetch(type.type.url)
     const typeData = await typeResponse.json()
     typesData.push(typeData)
   }
 
   const returnData = {
-    ...done,
+    ...pokemon,
     evChain,
     typesData,
+    mega: canMega(pokemon.name),
   }
 
   return returnData

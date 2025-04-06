@@ -46,6 +46,11 @@ export default function PokemonInfo() {
     nav(`/pokemon/${id}`)
   }
 
+  console.log(
+    pokemon.mega,
+    `https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon.id}-Mega.png`
+  )
+
   return (
     <div className="pb-16 pt-8 flex flex-col gap-8">
       <header
