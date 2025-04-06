@@ -192,16 +192,23 @@ export default function PokemonInfo() {
             </h3>
             <div className="flex flex-col gap-4">
               {rankings
-                .map((rank, i) => (
-                  <div key={i} className="flex gap-2 justify-between">
-                    <div className="flex gap-2">
-                      <div>{rank.rank}</div>
-                      <div>{rank.pokemon}</div>
+                .map((rank, i) => {
+                  const [_, pForm] = rank.pokemon.split(' ').reverse()
+
+                  return (
+                    <div key={i} className="flex gap-2 justify-between">
+                      <a
+                        href={`https://db.pokemongohub.net/pokemon/${pokemon.id}${pForm ? `-${pForm}` : ''}`}
+                        className="flex gap-2"
+                      >
+                        <div>{rank.rank}</div>
+                        <div>{rank.pokemon}</div>
+                      </a>
+                      {/* Moves */}
+                      {rankings ? <Moves rank={rank} /> : null}
                     </div>
-                    {/* Moves */}
-                    {rankings ? <Moves rank={rank} /> : null}
-                  </div>
-                ))
+                  )
+                })
                 .slice(0, 3)}
             </div>
           </div>

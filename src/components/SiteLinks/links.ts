@@ -3,8 +3,13 @@ export const urls = [
     section: 'raids',
     links: [
       {
-        name: 'raids - gamepress',
+        name: 'GamePress PoGo',
         url: 'https://pogo.gamepress.gg/pokemon/',
+        type: 'id',
+      },
+      {
+        name: 'Pokemon Go Hub',
+        url: 'https://db.pokemongohub.net/pokemon/',
         type: 'id',
       },
     ],

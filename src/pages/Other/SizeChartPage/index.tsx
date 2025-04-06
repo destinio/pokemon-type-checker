@@ -9,9 +9,9 @@ import {
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import { BaseSyntheticEvent, useEffect, useState } from 'react'
-import { usePokemon } from '../../../hooks/usePokemon'
-import MainLayout from '../../../layouts/MainLayout'
-import { IPokemon } from '../../../types'
+import { usePokemon } from '@/hooks/usePokemon'
+import MainLayout from '@/layouts/MainLayout'
+import { IPokemon } from '@/types'
 import RangeInput from './RangeInput'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
