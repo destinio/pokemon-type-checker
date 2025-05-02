@@ -16,6 +16,7 @@ import { usePokemonById } from '@/hooks/usePokemon'
 import { useRanks } from '@/hooks/useRanks'
 import { useState } from 'react'
 import { getTypeByName } from '@/utils/pokemonUtils'
+import { canMega } from '@/utils/canMega'
 
 type TPokemonForms = 'normal' | 'mega' | 'shiny'
 
@@ -55,6 +56,8 @@ export default function PokemonInfo() {
     shiny: pokemon.sprites.other.home.front_shiny,
     mega: `https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon.id}-Mega.png`,
   }
+
+  const canMegaEvolve = canMega(pokemon.name)
 
   return (
     <div className="pb-16 pt-8 flex flex-col gap-8">
@@ -123,12 +126,14 @@ export default function PokemonInfo() {
           >
             {imageType === 'shiny' ? <IoSparkles /> : <IoSparklesOutline />}
           </button>
-          <button
-            className={clsx({ 'text-yellow-300': imageType === 'mega' })}
-            onClick={() => setImageType(imageType === 'mega' ? 'normal' : 'mega')}
-          >
-            <PiDnaFill />
-          </button>
+          {canMegaEvolve && (
+            <button
+              className={clsx({ 'text-yellow-300': imageType === 'mega' })}
+              onClick={() => setImageType(imageType === 'mega' ? 'normal' : 'mega')}
+            >
+              <PiDnaFill />
+            </button>
+          )}
         </div>
       </header>
 
