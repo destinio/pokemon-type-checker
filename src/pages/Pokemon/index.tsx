@@ -1,5 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router'
 import { IoSparkles, IoSparklesOutline } from 'react-icons/io5'
+import { PiDnaFill } from "react-icons/pi";
+import { clsx } from 'clsx';
 
 import Loader from '@/components/Loader'
 import Moves from '@/components/Moves'
@@ -15,11 +17,13 @@ import { useRanks } from '@/hooks/useRanks'
 import { useState } from 'react'
 import { getTypeByName } from '@/utils/pokemonUtils'
 
+type TPokemonForms = 'normal' | 'mega' | 'shiny'
+
 export default function PokemonInfo() {
   const { id } = useParams()
   const nav = useNavigate()
 
-  const [shiny, setShiny] = useState(false)
+  const [imageType, setImageType] = useState<TPokemonForms>('normal')
 
   const { data: pokemon, isLoading, isFetching } = usePokemonById(id)
   const { data: ranks } = useRanks()
@@ -46,17 +50,18 @@ export default function PokemonInfo() {
     nav(`/pokemon/${id}`)
   }
 
-  console.log(
-    pokemon.mega,
-    `https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon.id}-Mega.png`
-  )
+  const imagesDict = {
+    normal: pokemon.sprites.other.home.front_default,
+    shiny: pokemon.sprites.other.home.front_shiny,
+    mega: `https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon.id}-Mega.png`,
+  }
 
   return (
     <div className="pb-16 pt-8 flex flex-col gap-8">
       <header
         style={{
           // TODO: pre load shiny image
-          backgroundImage: `url('${shiny ? pokemon.sprites.other.home.front_shiny : pokemon.sprites.other.home.front_default}')`,
+          backgroundImage: `url(${imagesDict[imageType]})`,
           backgroundPosition: 'bottom 2rem right 1rem',
           color: getTypeByName(pokemon.typesData[0].name).color,
         }}
@@ -111,9 +116,18 @@ export default function PokemonInfo() {
             </div>
           ) : null}
         </div>
-        <div className="flex justify-end pt-8">
-          <button className="text-2xl" onClick={() => setShiny(p => !p)}>
-            {shiny ? <IoSparkles /> : <IoSparklesOutline />}
+        <div className="flex justify-end pt-8 text-2xl">
+          <button
+            className={clsx({ 'text-yellow-300': imageType === 'shiny' })}
+            onClick={() => setImageType(imageType === 'shiny' ? 'normal' : 'shiny')}
+          >
+            {imageType === 'shiny' ? <IoSparkles /> : <IoSparklesOutline />}
+          </button>
+          <button
+            className={clsx({ 'text-yellow-300': imageType === 'mega' })}
+            onClick={() => setImageType(imageType === 'mega' ? 'normal' : 'mega')}
+          >
+            <PiDnaFill />
           </button>
         </div>
       </header>
