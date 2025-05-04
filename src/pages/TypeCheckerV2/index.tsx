@@ -1,9 +1,12 @@
 import { useState } from "react";
 import TypeTextButton from "@/components/TypeUtils/TypeTextButton";
 import { getAllPokemonTypeUiInfo } from "@/components/TypeUtils/utils";
+import { useTypeData } from "@/hooks/useTypeData";
 
 export default function TypeCheckerV2() {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([])
+
+  const { data: typeData } = useTypeData(selectedTypes[0])
 
   function handleTypeClick(type: string) {
     setSelectedTypes((prev) => {

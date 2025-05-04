@@ -2,9 +2,14 @@ import { useState } from "react";
 import { TypeIcon } from "@/components/TypeUtils/TypeIcon";
 import { TypeIconButton } from "@/components/TypeUtils/TypeIconButton";
 import TypeTextButton from "@/components/TypeUtils/TypeTextButton";
+import { useTypesData } from "@/hooks/useTypesData";
 
 export default function Playground() {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([])
+
+  const { data: typesData } = useTypesData(selectedTypes)
+
+  console.log('tyeps', typesData)
 
   function handleTypeClick(type: string) {
     setSelectedTypes((prev) =>

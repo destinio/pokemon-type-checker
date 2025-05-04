@@ -127,12 +127,12 @@ export default function PokemonInfo() {
             {imageType === 'shiny' ? <IoSparkles /> : <IoSparklesOutline />}
           </button>
           {canMegaEvolve && (
-            <button
-              className={clsx({ 'text-yellow-300': imageType === 'mega' })}
+          <button
+            className={clsx({ 'text-yellow-300': imageType === 'mega' })}
               onClick={() => setImageType(imageType === 'mega' ? 'normal' : 'mega')}
-            >
+          >
               <PiDnaFill />
-            </button>
+          </button>
           )}
         </div>
       </header>
