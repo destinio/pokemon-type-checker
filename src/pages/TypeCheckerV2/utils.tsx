@@ -20,17 +20,16 @@ import {
   GiElectric,
 } from 'react-icons/gi'
 import { MdStars } from 'react-icons/md'
-import { useTypeChecker } from '../pages/TypeChecker/context/TypeCheckerProvider'
-import classNames from 'classnames'
-import { useState } from 'react'
+
+const normalType = {
+  type: 'normal',
+  color: '#CC9',
+  icon: <MdStars />,
+}
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const pokemonTypesIcons = [
-  {
-    type: 'normal',
-    color: '#CC9',
-    icon: <MdStars />,
-  },
+const pokemonTypesIcons = [
+  normalType,
   {
     type: 'fighting',
     color: '#BB5544',
@@ -119,58 +118,7 @@ export const pokemonTypesIcons = [
   },
 ]
 
-export type TPokemonType = (typeof pokemonTypesIcons)[0]
-
-interface IPokemonSelectorType {
-  onClick?: () => void
-  type: string
-}
-
-export default function TypeIcon({ type }: IPokemonSelectorType) {
-  const pokemonType = pokemonTypesIcons.find(t => t.type === type)
-
-  const { setCurrentType } = useTypeChecker()
-
-  if (!pokemonType) {
-    return null
-  }
-
-  return (
-    <div
-      title={type}
-      className="text-4xl cursor-pointer hover:scale-110"
-      style={{ color: pokemonType.color }}
-      onClick={() => setCurrentType(type)}
-    >
-      {pokemonType.icon}
-    </div>
-  )
-}
-
-export function TypeIconButton({ type, onClick }: IPokemonSelectorType) {
-  const [selected, setSelected] = useState(false)
-  const shadow = '1px 1px 2px rgba(0,0,0,.7)'
-  const pokemonType = pokemonTypesIcons.find(t => t.type === type)
-
-  function handleClick() {
-    setSelected(!selected)
-    onClick?.()
-  }
-
-  return (
-    <button
-      key={type}
-      className={classNames(
-        'p-2 rounded-sm border border-black overflow-hidden text-xl hover:opacity-100 hover:scale-105',
-        {
-          'opacity-50': selected,
-        }
-      )}
-      style={{ backgroundColor: pokemonType?.color, textShadow: shadow }}
-      onClick={handleClick}
-      name={type}
-    >
-      {type}
-    </button>
-  )
+export function getPokemonTypeUiInfo(type: string) {
+  const pokemonType = pokemonTypesIcons.find(t => t.type === type) || normalType
+  return pokemonType
 }
