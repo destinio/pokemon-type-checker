@@ -1,49 +1,43 @@
 import { useState } from "react";
-import { TypeIcon } from "./TypeIcon";
-import { TypeIconButton } from "./TypeIconButton";
-import TypeTextButton from "./TypeTextButton";
+import TypeTextButton from "@/components/TypeUtils/TypeTextButton";
+import { getAllPokemonTypeUiInfo } from "@/components/TypeUtils/utils";
 
 export default function TypeCheckerV2() {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([])
 
   function handleTypeClick(type: string) {
-    setSelectedTypes((prev) =>
-      prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
-    )
+    setSelectedTypes((prev) => {
+      if (prev.includes(type)) {
+        // Deselect if already selected
+        return prev.filter(t => t !== type);
+      }
+      if (prev.length < 2) {
+        // Add if under limit
+        return [...prev, type];
+      }
+      // Otherwise, do nothing
+      return prev;
+    });
   }
 
+  const allTypes = getAllPokemonTypeUiInfo();
+
   return (
-    <div className="flex gap-10 flex-col items-center  h-screen">
+    <div className="">
       <h1>TCv2</h1>
-      <div className="flex flex-row items-center justify-center">
-        <TypeIcon type="normal" />
-        <TypeIcon type="fighting" />
-        <TypeIcon type="flying" />
-
+    <div className="grid grid-cols-4 gap-2">
+        {allTypes.map(({ type }) => (
+          <TypeTextButton
+            key={type}
+            inactive={selectedTypes.length > 0 && !selectedTypes.includes(type)}
+            disabled={selectedTypes.length >= 2 && !selectedTypes.includes(type)}
+            type={type}
+            onClick={() => handleTypeClick(type)}
+          />
+        ))}
       </div>
-      <div className="">
-        <h2>Type Icon Buttons</h2>
-        <TypeIconButton type="normal" onClick={() => {}} />
-        <TypeIconButton type="fighting" onClick={() => {}} />
-      </div>
-
-      <div className="">
-        <h2>Type Text Buttons</h2>
-        <TypeTextButton 
-          inactive={selectedTypes.length > 0 && !selectedTypes.includes('normal')} 
-          type="normal" 
-          onClick={() => handleTypeClick('normal')} 
-        />
-        <TypeTextButton 
-          inactive={selectedTypes.length > 0 && !selectedTypes.includes('fighting')} 
-          type="fighting" 
-          onClick={() => handleTypeClick('fighting')} 
-        />
-        <TypeTextButton 
-          inactive={selectedTypes.length > 0 && !selectedTypes.includes('flying')} 
-          type="flying" 
-          onClick={() => handleTypeClick('flying')} 
-        />
+      <div>
+        <h2>Results</h2>
         <div>
           {selectedTypes.map((type) => (
             <div key={type}>

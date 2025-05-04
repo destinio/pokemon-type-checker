@@ -28,7 +28,7 @@ const normalType = {
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-const pokemonTypesIcons = [
+const pokemonTypeUiInfoList = [
   normalType,
   {
     type: 'fighting',
@@ -119,6 +119,10 @@ const pokemonTypesIcons = [
 ]
 
 export function getPokemonTypeUiInfo(type: string) {
-  const pokemonType = pokemonTypesIcons.find(t => t.type === type) || normalType
+  const pokemonType = pokemonTypeUiInfoList.find(t => t.type === type) || normalType
   return pokemonType
+}
+
+export function getAllPokemonTypeUiInfo() {
+  return pokemonTypeUiInfoList
 }

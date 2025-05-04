@@ -17,7 +17,8 @@ export default function TypeTextButton({ type, onClick, disabled = false, inacti
       className={classNames(
         'p-2 rounded-sm border border-black overflow-hidden text-xl hover:opacity-100 hover:scale-105 transition',
         {
-          'opacity-50': inactive || disabled,
+          'opacity-40': inactive || disabled,
+          'cursor-not-allowed': disabled,
         }
       )}
       style={{ backgroundColor: color, textShadow: shadow }}

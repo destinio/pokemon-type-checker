@@ -13,6 +13,7 @@ import RanksPage from './pages/Ranks'
 import MainLayout from './layouts/MainLayout'
 import Current from './pages/Current'
 import TypeCheckerV2 from './pages/TypeCheckerV2'
+import Playground from './pages/Playground'
 
 const queryClient = new QueryClient()
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/typecheck/:id?" element={<TypeChecker />} />
           <Route path="/typecheckv2/:id?" element={<TypeCheckerV2 />} />
+          <Route path="/playground" element={<Playground/>} />
           <Route path="/search" element={<Search />} />
           <Route path="/other" element={<OtherAppsPage />} />
           <Route path="/ranks" element={<RanksPage />} />
