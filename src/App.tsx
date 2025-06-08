@@ -12,6 +12,7 @@ import SizeChartPage from './pages/Other/SizeChartPage'
 import RanksPage from './pages/Ranks'
 import MainLayout from './layouts/MainLayout'
 import Current from './pages/Current'
+import { TypeCheckerV2 } from './pages/TypeCheckerV2'
 
 const queryClient = new QueryClient()
 
@@ -22,6 +23,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/tc" element={<TypeCheckerV2 />} />
           <Route path="/typecheck/:id?" element={<TypeChecker />} />
           <Route path="/search" element={<Search />} />
           <Route path="/other" element={<OtherAppsPage />} />
