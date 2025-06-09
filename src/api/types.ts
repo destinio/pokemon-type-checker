@@ -1,10 +1,19 @@
-export async function getTypes(type: string) {
-  const res = await fetch(`https://pokeapi.co/api/v2/type/${type}`)
-  if (!res.ok) {
-    throw new Error('Network response was not ok')
-  }
+import { ITypeInfo } from "@/hooks/useTypeData"
 
-  const data = await res.json()
+export async function getTypes(types: string[]) {
+  const responses = await Promise.all(
+    types.map(type =>
+      fetch(`https://pokeapi.co/api/v2/type/${type}`)
+    )
+  )
 
-  return data
+  responses.forEach(res => {
+    if (!res.ok) {
+      throw new Error('Network response was not ok')
+    }
+  })
+
+  const data = await Promise.all(responses.map(res => res.json()))
+
+  return data as ITypeInfo[]
 }

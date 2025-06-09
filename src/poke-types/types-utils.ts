@@ -1,27 +1,7 @@
-import { pokemonTypesIcons } from '../components/TypeIcon'
+import { pokemonTypesIcons } from "./types-data"
 
 export function getTypeInfo(type: string) {
   return pokemonTypesIcons.find(t => t.type === type)
-}
-
-export interface Info {
-  name: string
-  url: string
-}
-
-export interface TypeRelations {
-  double_damage_from: Info[]
-  double_damage_to: Info[]
-  half_damage_from: Info[]
-  half_damage_to: Info[]
-  no_damage_from: Info[]
-  no_damage_to: Info[]
-}
-
-export async function getTypeApiData(type: string) {
-  const res = await fetch(`https://pokeapi.co/api/v2/type/${type}`)
-  const data = await res.json()
-  return data['damage_relations'] as TypeRelations
 }
 
 export function convertInfoHeader(title: string) {

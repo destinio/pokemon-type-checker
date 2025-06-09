@@ -1,6 +1,6 @@
-import { pokemonTypesIcons, TPokemonType } from '@/components/TypeIcon'
+import { pokemonTypesIcons, TPokemonTypeInfo } from "@/poke-types/types-data"
 
-export const getTypeByName = (name: string): TPokemonType => {
+export const getTypeByName = (name: string): TPokemonTypeInfo => {
   return pokemonTypesIcons.find(t => t.type === name) || pokemonTypesIcons[0]
 }
 

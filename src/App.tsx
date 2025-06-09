@@ -3,7 +3,7 @@ import './App.css'
 import NavBar from './components/NavBar'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import TypeChecker from './pages/TypeChecker'
+// import TypeChecker from './pages/TypeChecker'
 import Search from './pages/Search'
 import PokemonInfo from './pages/Pokemon'
 import Home from './pages/Home'
@@ -24,7 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tc" element={<TypeCheckerV2 />} />
-          <Route path="/typecheck/:id?" element={<TypeChecker />} />
+          {/* <Route path="/typecheck/:id?" element={<TypeChecker />} /> */}
           <Route path="/search" element={<Search />} />
           <Route path="/other" element={<OtherAppsPage />} />
           <Route path="/ranks" element={<RanksPage />} />

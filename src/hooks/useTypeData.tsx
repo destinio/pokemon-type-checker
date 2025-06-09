@@ -1,3 +1,5 @@
+import { getTypes } from '@/api/types'
+import { mergeTypeRelationships } from '@/utils/mergeTypeRelationships'
 import { useQuery } from '@tanstack/react-query'
 
 export interface ITypeInfo {
@@ -5,12 +7,12 @@ export interface ITypeInfo {
   name: string
 }
 
-interface IInfo {
+export interface IInfo {
   name: string
   url: string
 }
 
-interface IDamageRelations {
+export interface IDamageRelations {
   double_damage_from: IInfo[]
   double_damage_to: IInfo[]
   half_damage_from: IInfo[]
@@ -19,18 +21,32 @@ interface IDamageRelations {
   no_damage_to: IInfo[]
 }
 
-export function useTypeData(type: string | null) {
-  return useQuery<ITypeInfo>({
-    queryKey: [`poke-type-${type}`],
+export interface ICompiledDamageRelations extends IDamageRelations {
+  quadruple_damage_from: string[]
+  quadruple_damage_to: string[]
+  quarter_damage_from: string[]
+  quarter_damage_to: string[]
+  neutral_damage_from?: string[]  // optional
+  neutral_damage_to?: string[]    // optional
+}
+
+
+export type IDamageRelationKey = keyof IDamageRelations
+
+export function useTypeData(types: string[] | null) {
+  return useQuery<{ raw: ITypeInfo[], relationships: any[] }>({
+    queryKey: [`poke-type-${types?.sort().join('-')}`],
     staleTime: 1000 * 60 * 60 * 24, // 24 hours
-    enabled: !!type,
+    enabled: !!types && types.length > 0,
     queryFn: async () => {
-      return fetch(`https://pokeapi.co/api/v2/type/${type}`).then(res => {
-        if (!res.ok) {
-          throw new Error('Network response was not ok')
-        }
-        return res.json()
-      })
+      const raw = await getTypes(types as string[])
+
+      mergeTypeRelationships(raw)
+
+      return {
+        raw,
+        relationships: [],
+      }
     },
   })
 }

@@ -10,13 +10,13 @@ import SiteLinks from '@/components/SiteLinks'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6'
 import { FaFastForward } from 'react-icons/fa'
 import { RiBattery2ChargeFill } from 'react-icons/ri'
-import { convertInfoHeader } from '@/data/types'
 import { renderEvChain } from '@/utils/renderEvChain'
 import { usePokemonById } from '@/hooks/usePokemon'
 import { useRanks } from '@/hooks/useRanks'
 import { useState } from 'react'
 import { getTypeByName } from '@/utils/pokemonUtils'
 import { canMega } from '@/utils/canMega'
+import { convertInfoHeader } from '@/poke-types/types-utils';
 
 type TPokemonForms = 'normal' | 'mega' | 'shiny'
 
@@ -41,10 +41,10 @@ export default function PokemonInfo() {
 
   const rankings = ranks
     ? ranks.filter(p =>
-        p.pokemon
-          .toLowerCase()
-          .includes(pokemon.name.toLowerCase().replace(/-/g, ' '))
-      )
+      p.pokemon
+        .toLowerCase()
+        .includes(pokemon.name.toLowerCase().replace(/-/g, ' '))
+    )
     : []
 
   function handleChangePokemon(id: number) {

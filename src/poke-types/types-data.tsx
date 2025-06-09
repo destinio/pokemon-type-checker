@@ -20,10 +20,14 @@ import {
   GiElectric,
 } from 'react-icons/gi'
 import { MdStars } from 'react-icons/md'
-import { useTypeChecker } from '../pages/TypeChecker/context/TypeCheckerProvider'
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const pokemonTypesIcons = [
+export type TPokemonTypeInfo = {
+  type: string
+  color: string
+  icon: JSX.Element
+}
+
+export const pokemonTypesIcons: TPokemonTypeInfo[] = [
   {
     type: 'normal',
     color: '#CC9',
@@ -115,30 +119,3 @@ export const pokemonTypesIcons = [
     icon: <GiFairy />,
   },
 ]
-
-export type TPokemonType = (typeof pokemonTypesIcons)[0]
-
-interface ITypeIconProps {
-  type: string
-}
-
-export default function TypeIcon({ type }: ITypeIconProps) {
-  const pokemonType = pokemonTypesIcons.find(t => t.type === type)
-
-  const { setCurrentType } = useTypeChecker()
-
-  if (!pokemonType) {
-    return null
-  }
-
-  return (
-    <div
-      title={type}
-      className="text-4xl cursor-pointer hover:scale-110"
-      style={{ color: pokemonType.color }}
-      onClick={() => setCurrentType(type)}
-    >
-      {pokemonType.icon}
-    </div>
-  )
-}
