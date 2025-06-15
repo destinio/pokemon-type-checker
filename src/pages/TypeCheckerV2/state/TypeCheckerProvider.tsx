@@ -10,7 +10,9 @@ const TypeCheckerContext = createContext<TypeCheckerContextType | undefined>(und
 
 export const TypeCheckerProvider = ({ children }: { children: ReactNode }) => {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-  const resp = useTypeData(selectedTypes)
+  const { data: dmgRealationships } = useTypeData(selectedTypes)
+
+  console.log('response from useTypeData:', dmgRealationships);
 
   function toggleType(type: string) {
     setSelectedTypes((prev) => {

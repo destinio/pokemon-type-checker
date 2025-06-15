@@ -1,4 +1,4 @@
-import { IDamageRelations, IDamageRelationsSimplified, ITypeInfo } from "@/hooks/useTypeData";
+import { ICompiledDamageRelations, IDamageRelations, IDamageRelationsSimplified, ITypeInfo } from "@/hooks/useTypeData";
 
 const damageRelationKeys = [
   'double_damage_from',
@@ -13,7 +13,53 @@ const damageRelationKeys = [
   'quarter_damage_to'
 ] as const;
 
-console.log(damageRelationKeys);
+function normalizeDamageRelations(input: Record<string, string[]>) {
+  const result = {
+    double_damage_from: [],
+    double_damage_to: [],
+    half_damage_from: [],
+    half_damage_to: [],
+    no_damage_from: [],
+    no_damage_to: [],
+    quadruple_damage_from: [],
+    quadruple_damage_to: [],
+    quarter_damage_from: [],
+    quarter_damage_to: [],
+  } as ICompiledDamageRelations;
+
+  for (const key of [
+    "double_damage_from",
+    "double_damage_to",
+    "half_damage_from",
+    "half_damage_to",
+  ]) {
+    const counts: Record<string, number> = {};
+    for (const type of input[key] || []) {
+      counts[type] = (counts[type] || 0) + 1;
+    }
+
+    for (const [type, count] of Object.entries(counts)) {
+      if (count === 2) {
+        if (key.startsWith("double")) {
+          const resultKey = `quadruple_${key.slice(7)}` as keyof typeof result;
+          result[resultKey].push(type);
+        } else if (key.startsWith("half")) {
+          const resultKey = `quarter_${key.slice(4)}` as keyof typeof result;
+          result[resultKey].push(type);
+        }
+      } else {
+        const resultKey = key as keyof typeof result;
+        result[resultKey].push(type);
+      }
+    }
+  }
+
+  // no_damage is not doubled, just copy over
+  result.no_damage_from = (input.no_damage_from || []) as string[];
+  result.no_damage_to = (input.no_damage_to || []) as string[];
+
+  return result;
+}
 
 function flattenWithDuplicates(types: IDamageRelationsSimplified[]) {
   const result = {
@@ -23,20 +69,31 @@ function flattenWithDuplicates(types: IDamageRelationsSimplified[]) {
     half_damage_to: [],
     no_damage_from: [],
     no_damage_to: [],
-  };
+  } as Record<keyof IDamageRelationsSimplified, string[]>;
 
+  types.forEach(type => {
+    const typeObj = Object.entries(type) as [keyof IDamageRelationsSimplified, string[]][];
+
+    typeObj.forEach(([key, values]) => {
+      if (result[key]) {
+        result[key].push(...values);
+      } else {
+        console.warn(`Unknown key: ${key}`);
+      }
+    });
+  });
+
+  console.log('Flattened Result:', result);
 
   return result;
 }
 
 function compileDamageRelations(data: IDamageRelationsSimplified[]) {
   console.log('Compiling Damage Relations:', data);
-  flattenWithDuplicates(data);
+  const flat = flattenWithDuplicates(data);
+  const normalized = normalizeDamageRelations(flat);
 
-  // damageRelationKeys.forEach(key => {
-  //   compiled[key] = [];
-  // });
-  //
+  return normalized;
 }
 
 
@@ -57,8 +114,6 @@ function mergeTypeRelationships(types: ITypeInfo[]) {
   const dmgRelations = types.map(type => type.damage_relations);
 
   const relationships = compileDamageRelations(dmgRelations.map(simplifyTypeEffectiveness))
-
-  console.log('Merged Relationships:', relationships);
 
   return relationships;
 
