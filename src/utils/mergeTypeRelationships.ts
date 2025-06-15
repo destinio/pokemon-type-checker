@@ -15,16 +15,16 @@ const damageRelationKeys = [
 
 function normalizeDamageRelations(input: Record<string, string[]>) {
   const result = {
-    double_damage_from: [],
-    double_damage_to: [],
-    half_damage_from: [],
-    half_damage_to: [],
-    no_damage_from: [],
-    no_damage_to: [],
-    quadruple_damage_from: [],
     quadruple_damage_to: [],
-    quarter_damage_from: [],
+    quadruple_damage_from: [],
+    double_damage_to: [],
+    double_damage_from: [],
+    no_damage_to: [],
+    no_damage_from: [],
+    half_damage_to: [],
+    half_damage_from: [],
     quarter_damage_to: [],
+    quarter_damage_from: [],
   } as ICompiledDamageRelations;
 
   for (const key of [
@@ -83,13 +83,10 @@ function flattenWithDuplicates(types: IDamageRelationsSimplified[]) {
     });
   });
 
-  console.log('Flattened Result:', result);
-
   return result;
 }
 
 function compileDamageRelations(data: IDamageRelationsSimplified[]) {
-  console.log('Compiling Damage Relations:', data);
   const flat = flattenWithDuplicates(data);
   const normalized = normalizeDamageRelations(flat);
 

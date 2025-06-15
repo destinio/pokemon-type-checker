@@ -1,8 +1,9 @@
-import { useTypeData } from '@/hooks/useTypeData';
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { ICompiledDamageRelations, IDamageRelationsSimplified, useTypeData } from '@/hooks/useTypeData';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 type TypeCheckerContextType = {
   selectedTypes: string[];
+  relationships: ICompiledDamageRelations | null;
   toggleType: (type: string) => void;
 };
 
@@ -10,9 +11,19 @@ const TypeCheckerContext = createContext<TypeCheckerContextType | undefined>(und
 
 export const TypeCheckerProvider = ({ children }: { children: ReactNode }) => {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-  const { data: dmgRealationships } = useTypeData(selectedTypes)
+  const [relationships, setRelationships] = useState<ICompiledDamageRelations>(null!);
 
-  console.log('response from useTypeData:', dmgRealationships);
+  const { data } = useTypeData(selectedTypes)
+
+  useEffect(() => {
+    if (data) {
+      const { relationships } = data;
+
+      setRelationships(relationships);
+    }
+  }, [data]);
+
+  console.log(data);
 
   function toggleType(type: string) {
     setSelectedTypes((prev) => {
@@ -25,7 +36,7 @@ export const TypeCheckerProvider = ({ children }: { children: ReactNode }) => {
     });
   }
 
-  const value = { selectedTypes, toggleType }
+  const value = { selectedTypes, toggleType, relationships };
 
   return (
     <TypeCheckerContext.Provider value={value}>
