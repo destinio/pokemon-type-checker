@@ -21,6 +21,10 @@ export interface IDamageRelations {
   no_damage_to: IInfo[]
 }
 
+export type IDamageRelationsSimplified = {
+  [K in keyof IDamageRelations]: string[]
+}
+
 export interface ICompiledDamageRelations extends IDamageRelations {
   quadruple_damage_from: string[]
   quadruple_damage_to: string[]

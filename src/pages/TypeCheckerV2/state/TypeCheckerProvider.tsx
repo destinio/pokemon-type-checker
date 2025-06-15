@@ -12,8 +12,6 @@ export const TypeCheckerProvider = ({ children }: { children: ReactNode }) => {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const resp = useTypeData(selectedTypes)
 
-  console.log('TypeCheckerProvider', resp.data)
-
   function toggleType(type: string) {
     setSelectedTypes((prev) => {
       if (prev.includes(type)) {
